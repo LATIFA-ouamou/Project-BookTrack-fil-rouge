@@ -1,66 +1,87 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
+use App\Http\Requests\BorrowBookRequest;
+use App\Models\Book;
 use App\Models\Borrow;
-use App\Http\Requests\StoreBorrowRequest;
-use App\Http\Requests\UpdateBorrowRequest;
+use Illuminate\Support\Facades\DB;
 
 class BorrowController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    // 📚 Emprunter un livre
+    public function borrow(BorrowBookRequest $request, Book $book)
     {
-        //
+        if ($book->is_borrowed) {
+            return response()->json([
+                'message' => 'Livre déjà emprunté'
+            ], 400);
+        }
+
+        // Vérifier s'il existe déjà un emprunt actif
+        $existingBorrow = Borrow::where('book_id', $book->id)
+            ->whereNull('return_date')
+            ->exists();
+
+        if ($existingBorrow) {
+            return response()->json([
+                'message' => 'Ce livre est déjà emprunté'
+            ], 409);
+        }
+
+        DB::transaction(function () use ($book) {
+            Borrow::create([
+                'user_id' => auth()->id(),
+                'book_id' => $book->id,
+                'borrow_date' => now(),
+            ]);
+
+            $book->update([
+                'is_borrowed' => true
+            ]);
+        });
+
+        return response()->json([
+            'message' => 'Livre emprunté avec succès'
+        ], 201);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    // 📖 Mes emprunts
+    public function myBorrows()
     {
-        //
+        return Borrow::with('book')
+            ->where('user_id', auth()->id())
+            ->whereNull('return_date')
+            ->get();
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreBorrowRequest $request)
+    // 🔄 Retourner un livre
+    public function return(Book $book)
     {
-        //
-    }
+        $borrow = Borrow::where('book_id', $book->id)
+            ->where('user_id', auth()->id())
+            ->whereNull('return_date')
+            ->first();
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Borrow $borrow)
-    {
-        //
-    }
+        if (! $borrow) {
+            return response()->json([
+                'message' => 'Aucun emprunt actif trouvé'
+            ], 404);
+        }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Borrow $borrow)
-    {
-        //
-    }
+        DB::transaction(function () use ($borrow, $book) {
+            $borrow->update([
+                'return_date' => now()
+            ]);
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateBorrowRequest $request, Borrow $borrow)
-    {
-        //
-    }
+            $book->update([
+                'is_borrowed' => false
+            ]);
+        });
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Borrow $borrow)
-    {
-        //
+        return response()->json([
+            'message' => 'Livre retourné avec succès'
+        ]);
     }
 }
