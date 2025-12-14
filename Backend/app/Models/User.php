@@ -25,11 +25,9 @@ class User extends Authenticatable
     ];
 
 
-    public function borrowedBooks()
+public function borrows()
 {
-    return $this->belongsToMany(Book::class, 'book_user')
-                ->withPivot('borrow_date')
-                ->withTimestamps();
+return $this->hasMany(Borrow::class);
 }
 
 

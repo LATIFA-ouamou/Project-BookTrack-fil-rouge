@@ -16,12 +16,9 @@ protected $fillable = [
         'is_borrowed'
     ];
 
-
-    public function borrowers()
+public function borrows()
 {
-    return $this->belongsToMany(User::class, 'book_user')
-                ->withPivot('borrow_date')
-                ->withTimestamps();
+return $this->hasMany(Borrow::class);
 }
 
 }
