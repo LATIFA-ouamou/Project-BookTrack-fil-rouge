@@ -38,7 +38,7 @@ export default function Navbar() {
         <div className="hidden gap-8 text-sm text-gray-600 md:flex">
           <span className="text-green-700">Accueil</span>
           <span>Mes emprunts</span>
-          <span>About</span>
+          <button>About</button>
         </div>
 
         <button className="rounded-md bg-green-800 px-5 py-2 text-sm text-white">

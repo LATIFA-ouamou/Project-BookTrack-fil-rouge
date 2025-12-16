@@ -3,7 +3,6 @@ import React from 'react'
 function Register() {
   return (
     <>
-    
     <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
   <div className="w-full max-w-md bg-white rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.15)] px-8 py-10">
 
@@ -99,6 +98,7 @@ function Register() {
   </div>
 </div>
 
+    
     </>
   )
 }
