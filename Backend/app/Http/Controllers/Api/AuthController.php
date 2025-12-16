@@ -15,7 +15,7 @@ use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
-// 📝 Inscription
+
 public function register(RegisterRequest $request)
 {
 $user = User::create([
@@ -36,7 +36,7 @@ return response()->json([
 }
 
 
-// 🔐 Connexion
+
 public function login(LoginRequest $request)
 {
 $user = User::where('email', $request->email)->first();
@@ -49,7 +49,7 @@ throw ValidationException::withMessages([
 }
 
 
-// Supprimer les anciens tokens
+
 $user->tokens()->delete();
 
 
@@ -63,7 +63,7 @@ return response()->json([
 }
 
 
-// 🚪 Déconnexion
+
 public function logout(Request $request)
 {
 $request->user()->currentAccessToken()->delete();
@@ -75,7 +75,7 @@ return response()->json([
 }
 
 
-// 👤 Utilisateur connecté
+
 public function me(Request $request)
 {
 return response()->json($request->user());

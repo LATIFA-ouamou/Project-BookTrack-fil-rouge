@@ -3,15 +3,16 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\BorrowBookRequest;
+
+use App\Http\Requests\StoreBorrowRequest;
 use App\Models\Book;
 use App\Models\Borrow;
 use Illuminate\Support\Facades\DB;
 
 class BorrowController extends Controller
 {
-    // 📚 Emprunter un livre
-    public function borrow(BorrowBookRequest $request, Book $book)
+    
+    public function borrow(StoreBorrowRequest $request, Book $book)
     {
         if ($book->is_borrowed) {
             return response()->json([
@@ -19,7 +20,7 @@ class BorrowController extends Controller
             ], 400);
         }
 
-        // Vérifier s'il existe déjà un emprunt actif
+       
         $existingBorrow = Borrow::where('book_id', $book->id)
             ->whereNull('return_date')
             ->exists();
@@ -47,7 +48,7 @@ class BorrowController extends Controller
         ], 201);
     }
 
-    // 📖 Mes emprunts
+   
     public function myBorrows()
     {
         return Borrow::with('book')
@@ -56,7 +57,7 @@ class BorrowController extends Controller
             ->get();
     }
 
-    // 🔄 Retourner un livre
+   
     public function return(Book $book)
     {
         $borrow = Borrow::where('book_id', $book->id)
