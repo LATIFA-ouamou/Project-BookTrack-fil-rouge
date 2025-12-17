@@ -18,11 +18,14 @@ export default function Navbar() {
           <Link to="/" className="text-green-900 hover:text-green-800">
             Accueil
           </Link>
-          <Link to="/dashboard" className="hover:text-green-800">
+          <Link to="/MesEmprunts" className="hover:text-green-800">
             Mes emprunts
           </Link>
           <Link to="/about" className="hover:text-green-800">
             About
+          </Link>
+           <Link to="/dashboard" className="hover:text-green-800">
+            Dashboard
           </Link>
         </div>
 
@@ -32,6 +35,13 @@ export default function Navbar() {
           className="rounded-md bg-green-800 px-5 py-2 text-sm text-white hover:bg-green-900"
         >
           Connexion
+        </Link>
+
+        <Link
+          to="/login"
+          className="rounded-md bg-green-800 px-5 py-2 text-sm text-white hover:bg-green-900"
+        >
+          Logout
         </Link>
 
       </div>
