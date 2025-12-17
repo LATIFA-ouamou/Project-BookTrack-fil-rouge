@@ -6,7 +6,7 @@ function Footer() {
   <div className="max-w-7xl mx-auto px-6 py-12">
     <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
 
-      {/* Logo + description */}
+     
       <div>
         <div className="flex items-center gap-2 mb-4">
           <div className="w-7 h-7 rounded-md bg-green-500 flex items-center justify-center">
@@ -19,7 +19,7 @@ function Footer() {
         </p>
       </div>
 
-      {/* Liens rapides */}
+      
       <div>
         <h3 className="text-white font-semibold mb-4">Liens rapides</h3>
         <ul className="space-y-2 text-sm">
@@ -41,7 +41,7 @@ function Footer() {
         </ul>
       </div>
 
-      {/* Contact */}
+     
       <div>
         <h3 className="text-white font-semibold mb-4">Contact</h3>
         <ul className="space-y-3 text-sm">
@@ -58,7 +58,7 @@ function Footer() {
 
     </div>
 
-    {/* Divider */}
+   
     <div className="border-t border-white/10 mt-10 pt-6 text-center">
       <p className="text-xs text-gray-500">
         © 2024 BookTrack. Tous droits réservés.

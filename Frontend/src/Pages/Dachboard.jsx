@@ -1,21 +1,23 @@
 
 import React from "react";
 import { FiBook, FiCheckCircle, FiRefreshCw } from "react-icons/fi";
-import Sidebar from "../components/Sidebar";
-import ListeLivre from "../components/ListeLivre";
-import ListeUser from "../components/ListeUser";
+import AjouterLivre from "../Components/AjouterLivre";
+import ModifierLivre from "../Components/ModifierLivre";
+import Sidebar from "../Components/Sidebar";
+import ListeLivre from "../Components/ListeLivre";
+import ListeUser from "../Components/ListeUser";
 
 function Dashboard() {
   return (
     <div className="flex">
 
-      {/* Sidebar */}
-      <Sidebar />
+    
+      <Sidebar/>
 
-      {/* Content */}
+  
       <div className="ml-64 w-full p-8 bg-gray-50 min-h-screen">
 
-        {/* Title */}
+    
         <div className="mb-10 text-center">
           <h1 className="text-2xl font-semibold text-green-800">
             Tableau de bord
@@ -25,7 +27,7 @@ function Dashboard() {
           </p>
         </div>
 
-        {/* Cards */}
+   
         <div className="mb-14 grid grid-cols-1 gap-6 md:grid-cols-3">
 
           <div className="flex items-center justify-between rounded-xl bg-green-100 p-6">
@@ -63,9 +65,10 @@ function Dashboard() {
 
         </div>
 
-        <ListeLivre />
-        <ListeUser />
-
+        <ListeLivre/>
+        <ListeUser/>
+<AjouterLivre></AjouterLivre>
+<ModifierLivre></ModifierLivre>
       </div>
     </div>
   );
