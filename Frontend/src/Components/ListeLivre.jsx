@@ -1,7 +1,11 @@
 import React from "react";
-import { FiSearch, FiFilter, FiEdit2, FiTrash2 } from "react-icons/fi";
+import { FiSearch, FiFilter, FiEdit2, FiTrash2,FiPlus } from "react-icons/fi";
+
+
+import { useNavigate } from "react-router-dom";
 
 function ListeLivre() {
+  const navigate = useNavigate();
   return (
     <div className="mt-10 rounded-xl bg-white p-6 shadow-sm">
 
@@ -22,10 +26,20 @@ function ListeLivre() {
             />
           </div>
 
+            
+
           {/* Filter */}
           <button className="flex items-center gap-2 rounded-lg bg-gray-100 px-4 py-2 text-sm text-gray-600 hover:bg-gray-200">
             <FiFilter />
             Filtrer
+          </button>
+
+          <button
+              onClick={() => navigate("/dashboard/ajouter-livre")}
+            className="flex items-center gap-2 rounded-md bg-green-800 px-4 py-2 text-sm text-white hover:bg-green-900"
+          >
+            <FiPlus />
+            Ajouter un livre
           </button>
         </div>
       </div>

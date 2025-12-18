@@ -1,7 +1,7 @@
 
 import React from "react";
 import { FiBook, FiCheckCircle, FiRefreshCw } from "react-icons/fi";
-import AjouterLivre from "../Components/AjouterLivre";
+// import AjouterLivre from "../Components/AjouterLivre";
 import ModifierLivre from "../Components/ModifierLivre";
 import Sidebar from "../Components/Sidebar";
 import ListeLivre from "../Components/ListeLivre";
@@ -67,8 +67,8 @@ function Dashboard() {
 
         <ListeLivre/>
         <ListeUser/>
-<AjouterLivre></AjouterLivre>
-<ModifierLivre></ModifierLivre>
+{/* <AjouterLivre></AjouterLivre> */}
+{/* <ModifierLivre></ModifierLivre> */}
       </div>
     </div>
   );

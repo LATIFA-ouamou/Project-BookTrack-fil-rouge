@@ -42,6 +42,7 @@ import MesEmprunts from "./Pages/MesEmprunts";
 
 import ProtectedRoute from "./routes/ProtectedRoute";
 import AdminRoute from "./routes/AdminRoute";
+import AjouterLivre from "./Components/AjouterLivre";
 
 function App() {
   return (
@@ -71,9 +72,21 @@ function App() {
           element={
             <AdminRoute>
               <Dashboard />
+              
             </AdminRoute>
           }
         />
+
+
+         <Route
+          path="/dashboard/ajouter-livre"
+          element={
+            <AdminRoute>
+              <AjouterLivre />
+            </AdminRoute>
+          }
+        />
+     
       </Routes>
     </>
   );

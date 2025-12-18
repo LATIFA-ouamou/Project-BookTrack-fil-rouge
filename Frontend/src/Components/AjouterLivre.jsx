@@ -1,8 +1,13 @@
 import React from "react";
-
+import { useNavigate } from "react-router-dom";
 function AjouterLivre() {
+    const navigate = useNavigate();
   return (
+
+    
     <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
+      
+ 
       <div className="w-full max-w-2xl bg-white rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.15)] px-10 py-10">
 
         
@@ -77,12 +82,19 @@ function AjouterLivre() {
 
        
         <div className="flex justify-end gap-4 border-t pt-6">
-          <button className="px-6 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-100 transition">
+          {/* <button className="px-6 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-100 transition">
             Annuler
-          </button>
+          </button> */}
           <button className="px-6 py-2 rounded-lg bg-green-900 text-white font-medium shadow-[0_8px_20px_rgba(22,101,52,0.4)] hover:bg-green-800 transition">
             ✔ Enregistrer
           </button>
+          
+ <button
+ onClick={() => navigate(-1)}
+  className="px-6 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-100 transition">
+           ← Retour
+          </button>
+          
         </div>
 
       </div>
