@@ -38,7 +38,9 @@
 export default function HeroSection() {
   return (
     <section className="mx-auto mt-8 max-w-7xl px-6">
-      <div className="flex flex-col items-center justify-between gap-8 rounded-3xl bg-green-100 p-10 md:flex-row">
+      {/* <div className="flex flex-col items-center justify-between gap-8 rounded-3xl bg[#C9E3CC] p-11 md:flex-row"> */}
+        <div className="flex flex-col items-center justify-between gap-8 rounded-3xl bg-[#C9E3CC] p-11 md:flex-row">
+
         <div className="max-w-xl">
           <h1 className="text-3xl font-bold text-green-900">
             Découvrez notre bibliothèque
@@ -57,10 +59,10 @@ export default function HeroSection() {
           </div>
         </div>
 
-        <div className="rounded-2xl border-2 border-green-700 bg-white p-4">
+        <div className="rounded-2xl border-5 border-green-900 bg-white p-4">
           <img
-            src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f"
-            className="h-40 w-56 rounded-xl object-cover"
+            src="./public/LIVRE2.jpg"
+            className="h-60 w-90 rounded-xl object-cover"
           />
         </div>
       </div>

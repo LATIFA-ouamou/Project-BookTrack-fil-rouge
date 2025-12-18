@@ -1,7 +1,18 @@
-import React from "react";
-import { Link } from "react-router-dom";
+
+
+
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 export default function Navbar() {
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    await logout();
+    navigate("/");
+  };
+
   return (
     <nav className="border-b bg-white">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
@@ -12,38 +23,37 @@ export default function Navbar() {
           </div>
           BookTrack
         </Link>
+        {/* <h1 className="text-3xl font-bold text-green-900">
+            Découvrez notre bibliothèque
+          </h1> */}
 
-     
-        <div className="hidden gap-8 text-sm text-gray-600 md:flex">
-          <Link to="/" className="text-green-900 hover:text-green-800">
-            Accueil
-          </Link>
-          <Link to="/MesEmprunts" className="hover:text-green-800">
-            Mes emprunts
-          </Link>
-          <Link to="/about" className="hover:text-green-800">
-            About
-          </Link>
-           <Link to="/dashboard" className="hover:text-green-800">
-            Dashboard
-          </Link>
+        <div className="hidden gap-8 font-bold text-green-900 md:flex">
+          <Link to="/">Accueil</Link>
+          <Link to="/about">About</Link>
+
+         {user?.role === "user" && (
+  <Link to="/MesEmprunts" className="hover:text-green-800">
+    Mes emprunts
+  </Link>
+)}
+          {user?.role === "admin" && <Link to="/dashboard">Dashboard</Link>}
         </div>
 
-       
-        <Link
-          to="/login"
-          className="rounded-md bg-green-800 px-5 py-2 text-sm text-white hover:bg-green-900"
-        >
-          Connexion
-        </Link>
-
-        <Link
-          to="/login"
-          className="rounded-md bg-green-800 px-5 py-2 text-sm text-white hover:bg-green-900"
-        >
-          Logout
-        </Link>
-
+        {!user ? (
+          <Link
+            to="/login"
+            className="rounded-md bg-green-800 px-5 py-2 text-sm text-white"
+          >
+            Connexion
+          </Link>
+        ) : (
+          <button
+            onClick={handleLogout}
+            className="rounded-md bg-red-600 px-5 py-2 text-sm text-white"
+          >
+            Logout
+          </button>
+        )}
       </div>
     </nav>
   );
