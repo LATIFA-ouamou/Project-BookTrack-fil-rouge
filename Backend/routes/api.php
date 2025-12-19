@@ -33,7 +33,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
-
+ Route::get('/books', [BookController::class, 'index']);
+    Route::get('/books/{book}', [BookController::class, 'show']);
 Route::middleware('auth:sanctum')->group(function () {
 
 
@@ -43,12 +44,11 @@ Route::get('/me', [AuthController::class, 'me']);
 
 
    
-    Route::get('/books', [BookController::class, 'index']);
-    Route::get('/books/{book}', [BookController::class, 'show']);
-
+   
+ Route::post('/books', [BookController::class, 'store']);
    
     Route::middleware('admin')->group(function () {
-        Route::post('/books', [BookController::class, 'store']);
+       
         Route::put('/books/{book}', [BookController::class, 'update']);
         Route::delete('/books/{book}', [BookController::class, 'destroy']);
     });
