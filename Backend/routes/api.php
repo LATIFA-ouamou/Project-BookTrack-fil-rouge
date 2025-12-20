@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\BookController;
 use App\Http\Controllers\Api\BorrowController;
+use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -34,7 +35,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
  Route::get('/books', [BookController::class, 'index']);
-    Route::get('/books/{book}', [BookController::class, 'show']);
+  
 Route::middleware('auth:sanctum')->group(function () {
 
 
@@ -44,13 +45,21 @@ Route::get('/me', [AuthController::class, 'me']);
 
 
    
-   
- Route::post('/books', [BookController::class, 'store']);
+     Route::get('/books/{book}', [BookController::class, 'show']);
+
    
     Route::middleware('admin')->group(function () {
-       
+        Route::post('/books', [BookController::class, 'store']);
         Route::put('/books/{book}', [BookController::class, 'update']);
         Route::delete('/books/{book}', [BookController::class, 'destroy']);
+
+
+        //  Route::index('/users', [UserController::class, 'index']);
+         // Liste des utilisateurs
+    Route::get('/users', [UserController::class, 'index']);
+
+    // Supprimer un utilisateur
+    Route::delete('/users/{user}', [UserController::class, 'destroy']);
     });
 
   

@@ -2,7 +2,7 @@
 
 
 namespace App\Http\Controllers\Api;
-
+use App\Events\UserRegistered;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RegisterRequest;
@@ -25,6 +25,7 @@ $user = User::create([
 'role' => 'user',
 ]);
 
+event(new UserRegistered($user));
 
 $token = $user->createToken('auth_token')->plainTextToken;
 
@@ -33,6 +34,7 @@ return response()->json([
 'user' => $user,
 'token' => $token,
 ], 201);
+
 }
 
 
