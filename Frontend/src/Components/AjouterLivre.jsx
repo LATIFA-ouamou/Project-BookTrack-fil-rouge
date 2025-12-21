@@ -45,7 +45,7 @@ function AjouterLivre() {
         </div>
 
         <form onSubmit={handleSubmit}>
-          {/* Titre */}
+         
           <div className="mb-5">
             <label className="block text-sm font-medium text-gray-700 mb-2">
               Titre du livre <span className="text-red-500">*</span>
@@ -60,7 +60,6 @@ function AjouterLivre() {
             />
           </div>
 
-          {/* Auteur */}
           <div className="mb-5">
             <label className="block text-sm font-medium text-gray-700 mb-2">
               Auteur <span className="text-red-500">*</span>
@@ -75,7 +74,7 @@ function AjouterLivre() {
             />
           </div>
 
-          {/* Description */}
+          
           <div className="mb-6">
             <label className="block text-sm font-medium text-gray-700 mb-2">
               Description
@@ -92,7 +91,7 @@ function AjouterLivre() {
             </p>
           </div>
 
-          {/* Image */}
+         
           <div className="mb-8">
             <label className="block text-sm font-medium text-gray-700 mb-2">
               Image de couverture
@@ -107,7 +106,7 @@ function AjouterLivre() {
             />
           </div>
 
-          {/* Boutons */}
+         
           <div className="flex justify-end gap-4 border-t pt-6">
             <button
               type="submit"
