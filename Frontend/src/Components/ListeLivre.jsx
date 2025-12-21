@@ -35,7 +35,7 @@ function ListeLivre() {
 
   return (
     <div className="mt-10 rounded-xl bg-white p-6 shadow-sm">
-      {/* Header */}
+    
       <div className="mb-6 flex items-center justify-between">
         <h2 className="text-lg font-semibold text-gray-800">Liste des livres</h2>
         <button
@@ -47,7 +47,7 @@ function ListeLivre() {
         </button>
       </div>
 
-      {/* Table */}
+     
       <div className="overflow-x-auto rounded-lg border border-gray-100">
         <table className="w-full text-sm">
           <thead className="bg-gray-50 text-left text-gray-500">

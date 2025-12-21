@@ -20,19 +20,20 @@ export default function Navbar() {
         <Link to="/" className="flex items-center gap-2 font-semibold text-green-700">
           <div className="flex h-8 w-8 items-center justify-center rounded-md bg-green-600 text-white">
             📗
-          </div>
-          BookTrack
+          </div>Book
+          <span className="text-yellow-600">Track</span>
+        
         </Link>
         {/* <h1 className="text-3xl font-bold text-green-900">
             Découvrez notre bibliothèque
           </h1> */}
 
-        <div className="hidden gap-8 font-bold text-green-900 md:flex">
+        <div className="hidden gap-8 font-bold text-[#203E11] md:flex">
           <Link to="/">Accueil</Link>
           <Link to="/about">About</Link>
 
          {user?.role === "user" && (
-  <Link to="/MesEmprunts" className="hover:text-green-800">
+  <Link to="/MesEmprunts" className="hover:text-[#203E11]">
     Mes emprunts
   </Link>
 )}
@@ -42,7 +43,7 @@ export default function Navbar() {
         {!user ? (
           <Link
             to="/login"
-            className="rounded-md bg-green-800 px-5 py-2 text-sm text-white"
+            className="rounded-md bg-[#203E11] px-5 py-2 text-sm text-white"
           >
             Connexion
           </Link>

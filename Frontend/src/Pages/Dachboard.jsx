@@ -92,9 +92,10 @@ function Dashboard() {
 
       <div className="ml-64 w-full p-8 bg-gray-50 min-h-screen">
         <div className="mb-10 text-center">
-          <h1 className="text-2xl font-semibold text-green-800">
+          <h1 className="text-3xl font-bold text-[#203E11]">
             Tableau de bord
           </h1>
+          
           <p className="mt-2 text-sm text-gray-500">
             Gérez votre bibliothèque en toute simplicité
           </p>
