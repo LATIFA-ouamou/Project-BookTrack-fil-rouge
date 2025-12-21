@@ -43,6 +43,7 @@ import MesEmprunts from "./Pages/MesEmprunts";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import AdminRoute from "./routes/AdminRoute";
 import AjouterLivre from "./Components/AjouterLivre";
+import ModifierLivre from "./Components/ModifierLivre";
 
 function App() {
   return (
@@ -83,6 +84,16 @@ function App() {
           element={
             <AdminRoute>
               <AjouterLivre />
+            </AdminRoute>
+          }
+        />
+
+
+         <Route
+          path="/dashboard/Modifier-livre"
+          element={
+            <AdminRoute>
+              <ModifierLivre/>
             </AdminRoute>
           }
         />

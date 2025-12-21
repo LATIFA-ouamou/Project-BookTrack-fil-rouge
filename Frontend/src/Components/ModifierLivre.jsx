@@ -1,7 +1,9 @@
 import React from "react";
-
+import { useNavigate } from "react-router-dom";
 function ModifierLivre() {
+    const navigate = useNavigate();
   return (
+    
     <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
       <div className="w-full max-w-5xl bg-white rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.15)] px-10 py-10">
 
@@ -101,16 +103,7 @@ function ModifierLivre() {
             </div>
 
             
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Prix (€)
-              </label>
-              <input
-                type="number"
-                defaultValue="12.99"
-                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-600 focus:outline-none text-sm"
-              />
-            </div>
+            
 
            
             <div>
@@ -129,8 +122,10 @@ function ModifierLivre() {
 
       
         <div className="flex justify-end gap-4 mt-10 border-t pt-6">
-          <button className="px-6 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-100 transition">
-            Annuler
+          <button
+ onClick={() => navigate(-1)}
+  className="px-6 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-100 transition">
+           ← Retour
           </button>
           <button className="px-6 py-2 rounded-lg bg-green-900 text-white font-medium shadow-[0_8px_20px_rgba(22,101,52,0.4)] hover:bg-green-800 transition">
             💾 Mettre à jour
