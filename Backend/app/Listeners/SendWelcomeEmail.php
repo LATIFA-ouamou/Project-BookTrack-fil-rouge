@@ -3,17 +3,29 @@
 namespace App\Listeners;
 
 use App\Events\UserRegistered;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Queue\InteractsWithQueue;
+
 use App\Mail\WelcomeMail;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Log;
 
 class SendWelcomeEmail
 {
-    public function handle(UserRegistered $event): void
+    /**
+     * Create the event listener.
+     */
+    public function __construct()
     {
-        Log::info('Email envoyé à : ' . $event->user->email);
+        //
+    }
 
-        Mail::to($event->user->email)
-            ->send(new WelcomeMail($event->user));
+    /**
+     * Handle the event.
+     */
+    public function handle(UserRegistered $event)
+    {
+        Mail::to($event->user->email)->send(
+            new WelcomeMail($event->user)
+        );
     }
 }

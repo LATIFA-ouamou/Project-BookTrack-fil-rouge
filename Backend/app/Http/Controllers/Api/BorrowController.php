@@ -12,41 +12,66 @@ use Illuminate\Support\Facades\DB;
 class BorrowController extends Controller
 {
     
-    public function borrow(StoreBorrowRequest $request, Book $book)
-    {
-        if ($book->is_borrowed) {
-            return response()->json([
-                'message' => 'Livre déjà emprunté'
-            ], 400);
-        }
+    // public function borrow(StoreBorrowRequest $request, Book $book)
+    // {
+    //     if ($book->is_borrowed) {
+    //         return response()->json([
+    //             'message' => 'Livre déjà emprunté'
+    //         ], 400);
+    //     }
 
        
-        $existingBorrow = Borrow::where('book_id', $book->id)
-            ->whereNull('return_date')
-            ->exists();
+    //     $existingBorrow = Borrow::where('book_id', $book->id)
+    //         ->whereNull('return_date')
+    //         ->exists();
 
-        if ($existingBorrow) {
-            return response()->json([
-                'message' => 'Ce livre est déjà emprunté'
-            ], 409);
-        }
+    //     if ($existingBorrow) {
+    //         return response()->json([
+    //             'message' => 'Ce livre est déjà emprunté'
+    //         ], 409);
+    //     }
 
-        DB::transaction(function () use ($book) {
-            Borrow::create([
-                'user_id' => auth()->id(),
-                'book_id' => $book->id,
-                'borrow_date' => now(),
-            ]);
+    //     DB::transaction(function () use ($book) {
+    //         Borrow::create([
+    //             'user_id' => auth()->id(),
+    //             'book_id' => $book->id,
+    //             'borrow_date' => now(),
+    //         ]);
 
-            $book->update([
-                'is_borrowed' => true
-            ]);
-        });
+    //         $book->update([
+    //             'is_borrowed' => true
+    //         ]);
+    //     });
 
-        return response()->json([
-            'message' => 'Livre emprunté avec succès'
-        ], 201);
+    //     return response()->json([
+    //         'message' => 'Livre emprunté avec succès'
+    //     ], 201);
+    // }
+
+
+
+    public function borrow(StoreBorrowRequest $request, Book $book)
+{
+    if ($book->is_borrowed) {
+        return response()->json(['message' => 'Livre déjà emprunté'], 400);
     }
+
+    DB::transaction(function () use ($request, $book) {
+        Borrow::create([
+            'user_id' => auth()->id(),
+            'book_id' => $book->id,
+            'borrow_date' => $request->borrow_date,
+            'expected_return_date' => $request->expected_return_date,
+        ]);
+
+        $book->update(['is_borrowed' => true]);
+    });
+
+    return response()->json([
+        'message' => 'Emprunt confirmé avec succès'
+    ], 201);
+}
+
 
    
     public function myBorrows()
