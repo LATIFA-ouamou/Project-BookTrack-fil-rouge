@@ -1,9 +1,13 @@
 import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import api from "../api/axios";
 import { useAuth } from "../context/AuthContext";
 
 export default function MesEmprunts() {
   const { user } = useAuth();
+  const location = useLocation();
+
+  const successMessage = location.state?.message;
 
   const [borrows, setBorrows] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -51,8 +55,14 @@ export default function MesEmprunts() {
     <div className="mx-auto max-w-5xl px-6 py-10">
       <h1 className="mb-8 text-2xl font-semibold">Mes emprunts</h1>
 
+      {successMessage && (
+        <div className="mb-6 rounded bg-green-50 p-3 text-sm text-green-700">
+          {successMessage}
+        </div>
+      )}
+
       {error && (
-        <div className="mb-6 rounded-lg bg-red-50 p-3 text-sm text-red-600">
+        <div className="mb-6 rounded bg-red-50 p-3 text-sm text-red-600">
           {error}
         </div>
       )}

@@ -45,77 +45,49 @@ import AdminRoute from "./routes/AdminRoute";
 import AjouterLivre from "./Components/AjouterLivre";
 import ModifierLivre from "./Components/ModifierLivre";
 import ListeUser from "./Components/ListeUser";
+import BorrowForm from "./Pages/BorrowForm";
 
 function App() {
   return (
     <>
       <Navbar />
-
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-
-        {/* USER CONNECTÉ */}
-        <Route
-          path="/MesEmprunts"
-          element={
-            <ProtectedRoute>
-              <MesEmprunts />
-            </ProtectedRoute>
-          }
-        />
-
-       
-      </Routes>
-
-
 <Routes>
+  {/* PUBLIC */}
+  <Route path="/" element={<Home />} />
+  <Route path="/about" element={<About />} />
+  <Route path="/login" element={<Login />} />
+  <Route path="/register" element={<Register />} />
 
- {/* ADMIN */}
-        <Route
-          path="/dashboard"
-          element={
-            <AdminRoute>
-              <Dashboard />
-              
-            </AdminRoute>
-          }
-        />
+  {/* USER */}
+  <Route
+    path="/MesEmprunts"
+    element={
+      <ProtectedRoute>
+        <MesEmprunts />
+      </ProtectedRoute>
+    }
+  />
 
+  <Route
+    path="/borrow/:bookId"
+    element={
+      <ProtectedRoute>
+        <BorrowForm />
+      </ProtectedRoute>
+    }
+  />
 
-         <Route
-          path="/dashboard/ajouter-livre"
-          element={
-            <AdminRoute>
-              <AjouterLivre />
-            </AdminRoute>
-          }
-        />
+  {/* ADMIN */}
+  <Route
+    path="/dashboard"
+    element={
+      <AdminRoute>
+        <Dashboard />
+      </AdminRoute>
+    }
+  />
+</Routes>
 
-
-         <Route
-          path="/dashboard/Modifier-livre"
-          element={
-            <AdminRoute>
-              <ModifierLivre/>
-            </AdminRoute>
-          }
-        />
-     
-     <Route
-          path="/dashboard/ListeUser"
-          element={
-            <AdminRoute>
-              <ListeUser/>
-            </AdminRoute>
-          }
-        />
-
-
-      </Routes>
     </>
   );
 }
