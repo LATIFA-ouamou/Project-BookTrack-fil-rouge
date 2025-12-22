@@ -22,7 +22,9 @@ class StoreBorrowRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+              'borrow_date' => 'required|date',
+            'expected_return_date' => 'required|date|after_or_equal:borrow_date',
+
         ];
     }
 }
