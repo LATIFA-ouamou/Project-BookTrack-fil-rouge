@@ -44,6 +44,7 @@ import ProtectedRoute from "./routes/ProtectedRoute";
 import AdminRoute from "./routes/AdminRoute";
 import AjouterLivre from "./Components/AjouterLivre";
 import ModifierLivre from "./Components/ModifierLivre";
+import ListeUser from "./Components/ListeUser";
 
 function App() {
   return (
@@ -67,7 +68,13 @@ function App() {
           }
         />
 
-        {/* ADMIN */}
+       
+      </Routes>
+
+
+<Routes>
+
+ {/* ADMIN */}
         <Route
           path="/dashboard"
           element={
@@ -98,6 +105,16 @@ function App() {
           }
         />
      
+     <Route
+          path="/dashboard/ListeUser"
+          element={
+            <AdminRoute>
+              <ListeUser/>
+            </AdminRoute>
+          }
+        />
+
+
       </Routes>
     </>
   );

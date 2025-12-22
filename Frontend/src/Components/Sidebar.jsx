@@ -1,8 +1,10 @@
 import React from "react";
 import { FiHome, FiBook, FiUsers } from "react-icons/fi";
-
+import { useNavigate } from "react-router-dom";
 function Sidebar() {
+   const navigate = useNavigate();
   return (
+
     <aside className="fixed left-0 top-0 h-screen w-64 bg-white border-r border-gray-200">
 
       
@@ -31,11 +33,20 @@ function Sidebar() {
         </div>
 
        
-        <div className="flex cursor-pointer items-center gap-3 rounded-lg px-4 py-3 text-gray-600 hover:bg-green-50 hover:text-green-700">
+        <button  onClick={() => navigate("/dashboard/ListeUser")}
+        className="flex cursor-pointer items-center gap-3 rounded-lg px-4 py-3 text-gray-600 hover:bg-green-50 hover:text-green-700">
           <FiUsers />
           <span className="text-sm font-medium">Gestion des utilisateurs</span>
-        </div>
+        </button>
 
+
+{/* <button
+          onClick={() => navigate("/")}
+          className="flex items-center gap-2 rounded-md bg-green-800 px-4 py-2 text-sm text-white hover:bg-green-900"
+        >
+          <FiPlus />
+          Ajouter */}
+        {/* </button> */}
       </nav>
     </aside>
   );
