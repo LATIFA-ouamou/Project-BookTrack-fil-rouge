@@ -86,6 +86,37 @@ function App() {
       </AdminRoute>
     }
   />
+
+  <Route
+    path="/dashboard/ListeUser"
+    element={
+      <AdminRoute>
+        <ListeUser />
+      </AdminRoute>
+    }
+  />
+
+
+
+<Route
+    path="/dashboard/ajouter-livre"
+    element={
+      <AdminRoute>
+        <AjouterLivre/>
+      </AdminRoute>
+    }
+  />
+  
+
+
+  <Route
+    path="/dashboard/modifier-livre"
+    element={
+      <AdminRoute>
+        <ModifierLivre/>
+      </AdminRoute>
+    }
+  />
 </Routes>
 
     </>

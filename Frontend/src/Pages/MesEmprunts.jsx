@@ -52,17 +52,19 @@ export default function MesEmprunts() {
   }
 
   return (
-    <div className="mx-auto max-w-5xl px-6 py-10">
-      <h1 className="mb-8 text-2xl font-semibold">Mes emprunts</h1>
+    <div className="mx-auto max-w-7xl px-6 py-10">
+      <h1 className="mb-8 text-2xl font-bold text-[#203E11]">
+        Mes emprunts
+      </h1>
 
       {successMessage && (
-        <div className="mb-6 rounded bg-green-50 p-3 text-sm text-green-700">
+        <div className="mb-6 rounded-lg bg-green-50 p-3 text-sm text-green-700">
           {successMessage}
         </div>
       )}
 
       {error && (
-        <div className="mb-6 rounded bg-red-50 p-3 text-sm text-red-600">
+        <div className="mb-6 rounded-lg bg-red-50 p-3 text-sm text-red-600">
           {error}
         </div>
       )}
@@ -74,30 +76,64 @@ export default function MesEmprunts() {
           Vous n’avez aucun livre emprunté
         </p>
       ) : (
-        <div className="space-y-4">
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-4">
           {borrows.map((borrow) => (
             <div
               key={borrow.id}
-              className="flex items-center justify-between rounded-xl border bg-white p-4 shadow-sm"
+              className="rounded-xl border bg-[#C9E3CC] shadow-sm"
             >
-              <div>
-                <h3 className="text-sm font-semibold">
-                  {borrow.book.title}
-                </h3>
-                <p className="text-xs text-gray-500">
-                  {borrow.book.author}
-                </p>
+              {/* Image */}
+              <div className="p-3">
+                <img
+                  src={borrow.book.image || "/livre.jpg"}
+                  alt={borrow.book.title}
+                  className="h-44 w-full rounded-lg object-cover"
+                />
               </div>
 
-              <button
-                onClick={() => handleReturn(borrow.book.id)}
-                disabled={returnLoading === borrow.book.id}
-                className="rounded-md bg-red-600 px-4 py-2 text-xs font-medium text-white hover:bg-red-700 disabled:opacity-50"
-              >
-                {returnLoading === borrow.book.id
-                  ? "Retour..."
-                  : "Retourner"}
-              </button>
+              {/* Contenu */}
+              <div className="px-4 pb-4">
+                <h3 className="text-sm font-semibold text-gray-800">
+                  {borrow.book.title}
+                </h3>
+
+                <p className="mt-1 text-xs font-bold text-yellow-700">
+                  {borrow.book.author}
+                </p>
+
+                {/* Infos emprunt */}
+                <div className="mt-2 text-xs text-gray-600 space-y-1">
+                  <p>
+                    📅 Emprunté le :{" "}
+                    <span className="font-medium">
+                      {borrow.borrow_date}
+                    </span>
+                  </p>
+                  <p>
+                    ⏳ Retour prévu :{" "}
+                    <span className="font-medium">
+                      {borrow.return_date}
+                    </span>
+                  </p>
+                </div>
+
+                {/* Statut + action */}
+                <div className="mt-4 flex items-center justify-between">
+                  <span className="rounded-full bg-red-100 px-3 py-1 text-xs font-medium text-red-700">
+                    Emprunté
+                  </span>
+
+                  <button
+                    onClick={() => handleReturn(borrow.book.id)}
+                    disabled={returnLoading === borrow.book.id}
+                    className="rounded-md bg-red-600 px-3 py-2 text-xs font-medium text-white hover:bg-red-700 disabled:opacity-50"
+                  >
+                    {returnLoading === borrow.book.id
+                      ? "Retour..."
+                      : "Retourner"}
+                  </button>
+                </div>
+              </div>
             </div>
           ))}
         </div>
