@@ -47,13 +47,6 @@ function Sidebar() {
         </button>
 
 
-{/* <button
-          onClick={() => navigate("/")}
-          className="flex items-center gap-2 rounded-md bg-green-800 px-4 py-2 text-sm text-white hover:bg-green-900"
-        >
-          <FiPlus />
-          Ajouter */}
-        {/* </button> */}
         <button
             onClick={handleLogout}
             className="rounded-md bg-red-600 px-5 py-2 text-sm text-white"

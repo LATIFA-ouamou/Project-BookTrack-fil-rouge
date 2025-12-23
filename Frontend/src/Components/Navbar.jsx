@@ -3,7 +3,7 @@
 
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-
+import { useLocation } from "react-router-dom";
 export default function Navbar() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
@@ -13,6 +13,13 @@ export default function Navbar() {
     navigate("/");
   };
 
+
+   const location = useLocation();
+
+  // 🚫 cacher navbar dans le dashboard
+  if (location.pathname.startsWith("/dashboard")) {
+    return null;
+  }
   return (
     <nav className="border-b bg-white">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
