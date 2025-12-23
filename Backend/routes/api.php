@@ -47,18 +47,15 @@ Route::get('/me', [AuthController::class, 'me']);
    
      Route::get('/books/{book}', [BookController::class, 'show']);
 
-    Route::post('/books', [BookController::class, 'store']);
+    
     Route::middleware('admin')->group(function () {
-       
+       Route::post('/books', [BookController::class, 'store']);
         Route::put('/books/{book}', [BookController::class, 'update']);
         Route::delete('/books/{book}', [BookController::class, 'destroy']);
 
-
-        //  Route::index('/users', [UserController::class, 'index']);
-         // Liste des utilisateurs
+         
     Route::get('/users', [UserController::class, 'index']);
 
-    // Supprimer un utilisateur
     Route::delete('/users/{user}', [UserController::class, 'destroy']);
     });
 
