@@ -1,8 +1,15 @@
 import React from "react";
 import { FiHome, FiBook, FiUsers } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 function Sidebar() {
+   const { logout } = useAuth();
    const navigate = useNavigate();
+    const handleLogout = async () => {
+    await logout();
+    navigate("/");
+  };
+
   return (
 
     <aside className="fixed left-0 top-0 h-screen w-64 bg-white border-r border-gray-200">
@@ -22,7 +29,7 @@ function Sidebar() {
 
         
         <div className="flex items-center gap-3 rounded-lg bg-green-700 px-4 py-3 text-white">
-          <FiHome />
+          <FiHome/>
           <span className="text-sm font-medium">Dashboard</span>
         </div>
 
@@ -40,13 +47,12 @@ function Sidebar() {
         </button>
 
 
-{/* <button
-          onClick={() => navigate("/")}
-          className="flex items-center gap-2 rounded-md bg-green-800 px-4 py-2 text-sm text-white hover:bg-green-900"
-        >
-          <FiPlus />
-          Ajouter */}
-        {/* </button> */}
+        <button
+            onClick={handleLogout}
+            className="rounded-md bg-red-600 px-5 py-2 text-sm text-white"
+          >
+            Logout
+          </button>
       </nav>
     </aside>
   );
