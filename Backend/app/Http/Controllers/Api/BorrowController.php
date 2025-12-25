@@ -76,7 +76,7 @@ class BorrowController extends Controller
    
     public function myBorrows()
     {
-        return Borrow::with('book')
+        return Borrow::with('book.category')
             ->where('user_id', auth()->id())
             ->whereNull('return_date')
             ->get();

@@ -22,6 +22,7 @@ return [
 'author' => 'required|string|max:255',
 'description' => 'nullable|string',
 'image' => 'nullable|image|mimes:jpg,jpeg,png',
+'category_id' => 'nullable|exists:categories,id',
 ];
 }
 }
