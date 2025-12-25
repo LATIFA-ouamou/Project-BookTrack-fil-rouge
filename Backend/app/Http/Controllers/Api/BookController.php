@@ -6,18 +6,21 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreBookRequest;
 use App\Http\Requests\UpdateBookRequest;
 use App\Models\Book;
+use App\Models\Category;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 
 class BookController extends Controller
 {
     public function index()
     {
-        return response()->json(Book::all());
+        return response()->json(
+        Book::with('category')->get()
+    );
     }
 
     public function show(Book $book)
     {
-        return response()->json($book);
+        return response()->json($book->load('category'));
     }
 
     // public function store(StoreBookRequest $request)
@@ -69,7 +72,7 @@ class BookController extends Controller
             );
 
            
-            $data['image'] = $upload->getSecureUrl();
+          $data['image'] = $upload->getResponse()['secure_url'];
         }
 
         $book->update($data);
@@ -85,4 +88,14 @@ class BookController extends Controller
             'message' => 'Livre supprimé avec succès'
         ]);
     }
+
+ 
+    public function getCategory()
+    {
+        return response()->json(
+            Category::select('id', 'name')->get(),
+            200
+        );
+    }
+    
 }

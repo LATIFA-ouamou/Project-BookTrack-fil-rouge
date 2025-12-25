@@ -3,19 +3,21 @@
 import React from "react";
 import { FiTrash2, FiUser } from "react-icons/fi";
 import { useDash } from "../context/DashContext";
-
+import { useNavigate } from "react-router-dom";
 function ListeUser() {
   const { users, loading } = useDash();
 
   if (loading) {
     return (
+     
       <div className="mt-10 text-center text-gray-500">
         Chargement des utilisateurs...
       </div>
     );
   }
-
+  const navigate = useNavigate();
   return (
+   
     <div className="mt-10 rounded-xl bg-white p-6 shadow-sm">
       
       <div className="mb-6 flex items-center justify-between">
@@ -86,6 +88,13 @@ function ListeUser() {
             )}
           </tbody>
         </table>
+        <button
+              type="button"
+              onClick={() => navigate(-1)}
+              className="px-6 py-2 border rounded-lg"
+            >
+              ← Retour
+            </button>
       </div>
     </div>
   );

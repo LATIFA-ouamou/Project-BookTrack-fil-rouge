@@ -13,7 +13,8 @@ protected $fillable = [
         'author',
         'description',
         'image',
-        'is_borrowed'
+        'is_borrowed',
+        'category_id'
     ];
 
 public function borrows()
@@ -21,4 +22,9 @@ public function borrows()
 return $this->hasMany(Borrow::class);
 }
 
+
+ public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 }

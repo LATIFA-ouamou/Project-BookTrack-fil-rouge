@@ -82,7 +82,7 @@ export default function MesEmprunts() {
               key={borrow.id}
               className="rounded-xl border bg-[#C9E3CC] shadow-sm"
             >
-              {/* Image */}
+             
               <div className="p-3">
                 <img
                   src={borrow.book.image || "/livre.jpg"}
@@ -91,7 +91,7 @@ export default function MesEmprunts() {
                 />
               </div>
 
-              {/* Contenu */}
+             
               <div className="px-4 pb-4">
                 <h3 className="text-sm font-semibold text-gray-800">
                   {borrow.book.title}
@@ -101,7 +101,11 @@ export default function MesEmprunts() {
                   {borrow.book.author}
                 </p>
 
-                {/* Infos emprunt */}
+<p className="mt-1 text-xs text-green-800 font-semibold">
+  Catégorie : {borrow.book.category?.name || "Sans catégorie"}
+</p>
+
+                
                 <div className="mt-2 text-xs text-gray-600 space-y-1">
                   <p>
                     📅 Emprunté le :{" "}

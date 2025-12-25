@@ -5,50 +5,55 @@ import { useDash } from "../context/DashContext";
 function ModifierLivre() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { getBookById, updateBook } = useDash();
+
+  const { getBookById, updateBook, categories } = useDash();
 
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [description, setDescription] = useState("");
+  const [categoryId, setCategoryId] = useState("");
   const [image, setImage] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  /* 🔹 Charger le livre */
+  
   useEffect(() => {
     const fetchBook = async () => {
-      const book = await getBookById(id);
+      const response = await getBookById(id);
+      const book = response?.data ?? response;
+
       if (book) {
-        setTitle(book.title);
-        setAuthor(book.author);
-        setDescription(book.description ?? "");
+        setTitle(book.title || "");
+        setAuthor(book.author || "");
+        setDescription(book.description || "");
+        setCategoryId(book.category_id || "");
       }
     };
+
     fetchBook();
   }, [id, getBookById]);
 
-  /* 🔹 Submit */
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!title.trim() || !author.trim()) {
-      alert("Veuillez remplir le titre et l'auteur.");
+    if (!title.trim() || !author.trim() || !categoryId) {
+      alert("Veuillez remplir tous les champs obligatoires");
       return;
     }
 
     setLoading(true);
 
-    /* ✅ FormData obligatoire */
     const formData = new FormData();
     formData.append("title", title);
     formData.append("author", author);
     formData.append("description", description);
+    formData.append("category_id", categoryId);
 
-    /* ⚠️ Ajouter l’image seulement si elle existe */
     if (image) {
       formData.append("image", image);
     }
 
-    /* ⚠️ Important pour Laravel */
+   
     formData.append("_method", "PUT");
 
     const result = await updateBook(id, formData);
@@ -56,10 +61,10 @@ function ModifierLivre() {
     setLoading(false);
 
     if (result.success) {
-      alert("Livre modifié avec succès !");
+      alert("Livre modifié avec succès ");
       navigate(-1);
     } else {
-      alert("Erreur lors de la modification.");
+      alert("Erreur lors de la modification ");
     }
   };
 
@@ -67,17 +72,16 @@ function ModifierLivre() {
     <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
       <div className="w-full max-w-2xl bg-white rounded-2xl shadow-xl px-10 py-10">
 
-        {/* HEADER */}
+        
         <div className="mb-8">
           <h1 className="text-2xl font-bold text-green-800">
-            ✏️ Modifier le livre
+             Modifier le livre
           </h1>
           <p className="text-gray-500 text-sm mt-2">
             Modifiez les informations du livre
           </p>
         </div>
 
-       
         <form onSubmit={handleSubmit}>
          
           <div className="mb-5">
@@ -108,6 +112,31 @@ function ModifierLivre() {
           </div>
 
           
+          <div className="mb-5">
+            <label className="block text-sm font-medium mb-2">
+              Catégorie <span className="text-red-500">*</span>
+            </label>
+            <select
+              value={categoryId}
+              onChange={(e) => setCategoryId(e.target.value)}
+              className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-green-600"
+              required
+            >
+              <option value="">-- Choisir une catégorie --</option>
+  {/* <option value="1">Informatique</option>
+  <option value="2">Réseaux</option>
+  <option value="3">Programmation</option>
+  <option value="4">ART</option>
+  <option value="5">Base de données</option> */}
+              {categories.map((cat) => (
+                <option key={cat.id} value={cat.id}>
+                  {cat.name}
+                </option>
+              ))}
+            </select>
+          </div>
+
+         
           <div className="mb-6">
             <label className="block text-sm font-medium mb-2">
               Description
@@ -120,7 +149,7 @@ function ModifierLivre() {
             />
           </div>
 
-          
+        
           <div className="mb-8">
             <label className="block text-sm font-medium mb-2">
               Image de couverture
@@ -136,7 +165,7 @@ function ModifierLivre() {
             </p>
           </div>
 
-          
+         
           <div className="flex justify-end gap-4 border-t pt-6">
             <button
               type="submit"
@@ -151,7 +180,7 @@ function ModifierLivre() {
               onClick={() => navigate(-1)}
               className="px-6 py-2 border rounded-lg"
             >
-              ← Retour
+               Retour
             </button>
           </div>
         </form>
