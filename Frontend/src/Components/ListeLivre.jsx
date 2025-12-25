@@ -9,6 +9,7 @@ import { useDash } from "../context/DashContext";
 function ListeLivre() {
   const { books, loading, deleteBook } = useDash();
   const navigate = useNavigate();
+  console.log(books)
 
   if (loading) {
     return (
@@ -52,19 +53,20 @@ function ListeLivre() {
         <table className="w-full text-sm">
           <thead className="bg-gray-50 text-left text-gray-500">
             <tr>
-              <th className="px-6 py-3">Livre</th>
-              <th className="px-6 py-3">Auteur</th>
               <th className="px-6 py-3">Image</th>
+              <th className="px-6 py-3">Livre</th>
+             
+              <th className="px-6 py-3">Auteur</th>
+              
               <th className="px-6 py-3">Statut</th>
               <th className="px-6 py-3 text-center">Actions</th>
+               <th className="px-6 py-3">Category</th>
             </tr>
           </thead>
 
           <tbody className="divide-y">
             {books.map((book) => (
-              <tr key={book.id} className="hover:bg-gray-50">
-                <td className="px-6 py-4 font-medium text-gray-800">{book.title}</td>
-                <td className="px-6 py-4 text-gray-600">{book.author}</td>
+              <tr key={book.id} className="hover:bg-green-50">
                 <td className="px-6 py-4">
                   {book.image ? (
                     <img
@@ -76,6 +78,10 @@ function ListeLivre() {
                     <span className="text-gray-400">Aucune image</span>
                   )}
                 </td>
+                <td className="px-6 py-4 font-medium text-gray-800">{book.title}</td>
+
+                <td className="px-6 py-4 text-gray-600">{book.author}</td>
+                
                 <td className="px-6 py-4">{renderStatus(book.is_borrowed)}</td>
                 <td className="px-6 py-4">
                   <div className="flex justify-center gap-4">
@@ -87,8 +93,10 @@ function ListeLivre() {
                       onClick={() => deleteBook(book.id)}
                       className="cursor-pointer text-red-500 hover:text-red-700"
                     />
+                    
                   </div>
                 </td>
+                <td className="px-6 py-4 text-gray-600">{book?.category?.name}</td>
               </tr>
             ))}
 
