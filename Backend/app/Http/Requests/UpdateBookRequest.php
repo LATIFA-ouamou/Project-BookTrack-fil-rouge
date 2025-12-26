@@ -24,6 +24,7 @@ return [
 'image' => 'nullable|file',
 'is_borrowed' => 'boolean',
 // 'category_id' => 'nullable|exists:categories,id',
+'stock' => 'sometimes|integer|min:0',
 ];
 }
 }

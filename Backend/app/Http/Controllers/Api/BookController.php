@@ -61,6 +61,11 @@ class BookController extends Controller
     return response()->json($book, 201);
 }
 
+
+
+
+
+
     public function update(UpdateBookRequest $request, Book $book)
     {
         $data = $request->validated();
@@ -79,6 +84,11 @@ class BookController extends Controller
 
         return response()->json($book);
     }
+
+
+
+
+
 
     public function destroy(Book $book)
     {

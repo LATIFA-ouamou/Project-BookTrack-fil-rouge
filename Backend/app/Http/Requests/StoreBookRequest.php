@@ -23,6 +23,7 @@ return [
 'description' => 'nullable|string',
 'image' => 'nullable|image|mimes:jpg,jpeg,png',
 'category_id' => 'nullable|exists:categories,id',
+'stock' => 'required|integer|min:0',
 ];
 }
 }
