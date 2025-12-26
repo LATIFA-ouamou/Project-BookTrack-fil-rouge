@@ -35,7 +35,7 @@ function Register() {
 
     try {
       await register(form);
-      navigate("/"); // ou dashboard
+      navigate("/"); 
     } catch (err) {
       setError("Erreur lors de la création du compte");
     } finally {

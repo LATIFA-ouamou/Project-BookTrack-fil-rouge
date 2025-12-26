@@ -14,7 +14,8 @@ protected $fillable = [
         'description',
         'image',
         'is_borrowed',
-        'category_id'
+        'category_id',
+          'stock',
     ];
 
 public function borrows()

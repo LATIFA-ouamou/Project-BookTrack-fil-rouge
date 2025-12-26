@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import api from "../api/axios";
@@ -82,7 +83,6 @@ export default function MesEmprunts() {
               key={borrow.id}
               className="rounded-xl border bg-[#C9E3CC] shadow-sm"
             >
-             
               <div className="p-3">
                 <img
                   src={borrow.book.image || "/livre.jpg"}
@@ -91,7 +91,6 @@ export default function MesEmprunts() {
                 />
               </div>
 
-             
               <div className="px-4 pb-4">
                 <h3 className="text-sm font-semibold text-gray-800">
                   {borrow.book.title}
@@ -101,27 +100,25 @@ export default function MesEmprunts() {
                   {borrow.book.author}
                 </p>
 
-<p className="mt-1 text-xs text-green-800 font-semibold">
-  Catégorie : {borrow.book.category?.name || "Sans catégorie"}
-</p>
+                <p className="mt-1 text-xs text-green-800 font-semibold">
+                  Catégorie : {borrow.book.category?.name || "Sans catégorie"}
+                </p>
 
-                
+                <p className="mt-1 text-xs text-gray-500">
+                  Stock : <span className="font-medium">{borrow.book.stock}</span>
+                </p>
+
                 <div className="mt-2 text-xs text-gray-600 space-y-1">
                   <p>
                     📅 Emprunté le :{" "}
-                    <span className="font-medium">
-                      {borrow.borrow_date}
-                    </span>
+                    <span className="font-medium">{borrow.borrow_date}</span>
                   </p>
                   <p>
                     ⏳ Retour prévu :{" "}
-                    <span className="font-medium">
-                      {borrow.return_date}
-                    </span>
+                    <span className="font-medium">{borrow.return_date}</span>
                   </p>
                 </div>
 
-                {/* Statut + action */}
                 <div className="mt-4 flex items-center justify-between">
                   <span className="rounded-full bg-red-100 px-3 py-1 text-xs font-medium text-red-700">
                     Emprunté
@@ -132,9 +129,7 @@ export default function MesEmprunts() {
                     disabled={returnLoading === borrow.book.id}
                     className="rounded-md bg-red-600 px-3 py-2 text-xs font-medium text-white hover:bg-red-700 disabled:opacity-50"
                   >
-                    {returnLoading === borrow.book.id
-                      ? "Retour..."
-                      : "Retourner"}
+                    {returnLoading === borrow.book.id ? "Retour..." : "Retourner"}
                   </button>
                 </div>
               </div>
