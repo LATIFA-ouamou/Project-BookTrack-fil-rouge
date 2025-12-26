@@ -1,6 +1,5 @@
 
 
-
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
@@ -70,22 +69,22 @@ export default function Home() {
                     {book.author}
                   </p>
 
-<p className="mt-1 text-xs text-gray-500">
-  Catégorie :{" "}
-  <span className="font-medium">
-    {book.category?.name || "Sans catégorie"}
-  </span>
-</p>
+                  <p className="mt-1 text-xs text-gray-500">
+                    Catégorie :{" "}
+                    <span className="font-medium">
+                      {book.category?.name || "Sans catégorie"}
+                    </span>
+                  </p>
 
-
+                  <p className="mt-1 text-xs text-gray-500">
+                    Stock : <span className="font-medium">{book.stock}</span>
+                  </p>
 
                   <div className="mt-3 flex items-center justify-between">
                     <div className="flex items-center gap-2">
                       <span
                         className={`h-2 w-2 rounded-full ${
-                          book.is_borrowed
-                            ? "bg-red-500"
-                            : "bg-green-600"
+                          book.is_borrowed ? "bg-red-500" : "bg-green-600"
                         }`}
                       />
                       <span
@@ -99,7 +98,7 @@ export default function Home() {
                       </span>
                     </div>
 
-                    {user?.role === "user" && !book.is_borrowed && (
+                    {user?.role === "user" && !book.is_borrowed && book.stock > 0 && (
                       <button
                         onClick={() => navigate(`/borrow/${book.id}`)}
                         className="text-xs font-medium text-blue-600 hover:underline"
@@ -114,7 +113,7 @@ export default function Home() {
           </div>
         )}
 
-        {/* Pagination (statique) */}
+        {/* Pagination */}
         <div className="mt-12 flex items-center justify-center gap-4 text-sm">
           <span className="cursor-pointer text-gray-400">‹</span>
           <span className="flex h-7 w-7 items-center justify-center rounded-md bg-green-800 text-white">
@@ -130,4 +129,3 @@ export default function Home() {
     </div>
   );
 }
-

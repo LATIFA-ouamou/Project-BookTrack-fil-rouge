@@ -1,3 +1,4 @@
+
 import { createContext, useContext, useEffect, useState } from "react";
 import api from "../api/axios";
 
@@ -16,13 +17,12 @@ export const DashProvider = ({ children }) => {
       const res = await api.get("/books");
       setBooks(res.data);
     } catch (e) {
-      console.error(e);
+      console.error("Erreur getBooks", e);
     } finally {
       setLoading(false);
     }
   };
 
- 
   const getBookById = async (id) => {
     try {
       const res = await api.get(`/books/${id}`);
@@ -33,17 +33,15 @@ export const DashProvider = ({ children }) => {
     }
   };
 
- 
   const getCategories = async () => {
     try {
       const res = await api.get("/categories");
       setCategories(res.data);
     } catch (e) {
-      console.error("Erreur catégories", e);
+      console.error("Erreur getCategories", e);
     }
   };
 
- 
   const addBook = async (bookData) => {
     try {
       const formData = new FormData();
@@ -51,10 +49,8 @@ export const DashProvider = ({ children }) => {
       formData.append("author", bookData.author);
       formData.append("description", bookData.description || "");
       formData.append("category_id", bookData.category_id);
-
-      if (bookData.image) {
-        formData.append("image", bookData.image);
-      }
+      formData.append("stock", bookData.stock || 0); // ajout stock
+      if (bookData.image) formData.append("image", bookData.image);
 
       const res = await api.post("/books", formData, {
         headers: { "Content-Type": "multipart/form-data" },
@@ -63,7 +59,7 @@ export const DashProvider = ({ children }) => {
       setBooks((prev) => [...prev, res.data]);
       return { success: true };
     } catch (e) {
-      console.error(e);
+      console.error("Erreur addBook", e);
       return { success: false };
     }
   };
@@ -85,23 +81,34 @@ export const DashProvider = ({ children }) => {
     }
   };
 
-  
   const deleteBook = async (id) => {
     if (!window.confirm("Supprimer ce livre ?")) return;
-    await api.delete(`/books/${id}`);
-    setBooks((prev) => prev.filter((b) => b.id !== id));
+    try {
+      await api.delete(`/books/${id}`);
+      setBooks((prev) => prev.filter((b) => b.id !== id));
+    } catch (e) {
+      console.error("Erreur deleteBook", e);
+    }
   };
 
- 
+  
   const getUsers = async () => {
-    const res = await api.get("/users");
-    setUsers(res.data);
+    try {
+      const res = await api.get("/users");
+      setUsers(res.data);
+    } catch (e) {
+      console.error("Erreur getUsers", e);
+    }
   };
 
+
+
+  
   const stats = {
     total: books.length,
     disponibles: books.filter((b) => !b.is_borrowed).length,
     empruntes: books.filter((b) => b.is_borrowed).length,
+    totalStock: books.reduce((acc, b) => acc + Number(b.stock || 0), 0), // stock total
   };
 
   useEffect(() => {
@@ -119,9 +126,9 @@ export const DashProvider = ({ children }) => {
         stats,
         loading,
         getBooks,
-        getBookById,   
+        getBookById,
         addBook,
-        updateBook,   
+        updateBook,
         deleteBook,
       }}
     >
