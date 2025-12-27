@@ -36,6 +36,9 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
  Route::get('/books', [BookController::class, 'index']);
 Route::get('/books/{book}', [BookController::class, 'show']);
+
+Route::get('/books', [BookController::class, 'search']);
+
 Route::middleware('auth:sanctum')->group(function () {
 
 

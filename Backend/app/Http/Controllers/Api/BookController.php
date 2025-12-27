@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateBookRequest;
 use App\Models\Book;
 use App\Models\Category;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
+use Illuminate\Http\Request;
 
 class BookController extends Controller
 {
@@ -107,5 +108,22 @@ class BookController extends Controller
             200
         );
     }
+ 
     
+
+
+    // GET /api/books?search=...
+public function search(Request $request)
+{
+    $query = Book::query();
+
+    // Filtrer par titre si le paramètre search existe
+    if ($request->has('search')) {
+        $query->where('title', 'like', '%' . $request->search . '%');
+    }
+
+    $books = $query->with('category')->get();
+    return response()->json($books);
+}
+
 }
