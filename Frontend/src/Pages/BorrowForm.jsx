@@ -23,10 +23,10 @@ export default function BorrowForm() {
         expected_return_date: returnDate,
       });
 
-      // ✅ message succès
-      setSuccess("Emprunt confirmé avec succès ✅");
+      
+      setSuccess("Emprunt confirmé avec succès ");
 
-      // ✅ redirection après 1.5s
+      
       setTimeout(() => {
         navigate("/MesEmprunts", {
           state: {

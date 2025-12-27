@@ -1,34 +1,26 @@
-
-
-import React from "react";
 import { FiTrash2, FiUser } from "react-icons/fi";
 import { useDash } from "../context/DashContext";
-import { useNavigate } from "react-router-dom";
+
 function ListeUser() {
-  const { users, loading } = useDash();
+  const { users, loading, deleteUser } = useDash();
 
   if (loading) {
     return (
-     
-      <div className="mt-10 text-center text-gray-500">
-        Chargement des utilisateurs...
+      <div className="text-center text-gray-500">
+        Chargement...
       </div>
     );
   }
-  const navigate = useNavigate();
+
   return (
-   
-    <div className="mt-10 rounded-xl bg-white p-6 shadow-sm">
-      
-      <div className="mb-6 flex items-center justify-between">
-        <h2 className="text-lg font-semibold text-gray-800">
-          Liste des utilisateurs
-        </h2>
-      </div>
+    <div className="rounded-xl bg-white p-6 shadow-sm">
+      <h2 className="mb-6 text-lg font-semibold text-[#203E11]">
+        Gestion des utilisateurs
+      </h2>
 
       <div className="overflow-hidden rounded-lg border border-gray-100">
         <table className="w-full text-sm">
-          <thead className="bg-gray-50 text-left text-gray-500">
+          <thead className="bg-green-100 text-left text-[#203E11]">
             <tr>
               <th className="px-6 py-3">Utilisateur</th>
               <th className="px-6 py-3">Email</th>
@@ -39,16 +31,17 @@ function ListeUser() {
 
           <tbody className="divide-y">
             {users.map((user) => (
-              <tr key={user.id} className="hover:bg-gray-50">
-                <td className="px-6 py-4">
-                  <div className="flex items-center gap-3">
-                    <div className="flex h-9 w-9 items-center justify-center rounded-full bg-green-100 text-green-700">
-                      <FiUser />
-                    </div>
-                    <span className="font-medium text-gray-800">
-                      {user.name}
-                    </span>
+              <tr
+                key={user.id}
+                className="hover:bg-[#203E11]/5 transition"
+              >
+                <td className="px-6 py-4 flex items-center gap-3">
+                  <div className="flex h-9 w-9 items-center justify-center rounded-full bg-green-100 text-[#203E11]">
+                    <FiUser />
                   </div>
+                  <span className="font-medium text-gray-800">
+                    {user.name}
+                  </span>
                 </td>
 
                 <td className="px-6 py-4 text-gray-600">
@@ -56,22 +49,17 @@ function ListeUser() {
                 </td>
 
                 <td className="px-6 py-4">
-                  <span
-                    className={`rounded-full px-3 py-1 text-xs font-medium
-                      ${
-                        user.role === "admin"
-                          ? "bg-green-100 text-green-700"
-                          : "bg-blue-100 text-blue-700"
-                      }`}
-                  >
+                  <span className="rounded-full bg-green-700  px-3 py-1 text-xs font-medium text-black-700">
                     {user.role}
                   </span>
                 </td>
 
-                <td className="px-6 py-4">
-                  <div className="flex justify-center">
-                    <FiTrash2 className="cursor-pointer text-red-500 hover:text-red-700" />
-                  </div>
+                <td className="px-6 py-4 text-center">
+                  <FiTrash2
+                    onClick={() => deleteUser(user.id)}
+                    className="mx-auto cursor-pointer text-red-500 hover:text-red-700"
+                    title="Supprimer l'utilisateur"
+                  />
                 </td>
               </tr>
             ))}
@@ -88,13 +76,6 @@ function ListeUser() {
             )}
           </tbody>
         </table>
-        <button
-              type="button"
-              onClick={() => navigate(-1)}
-              className="px-6 py-2 border rounded-lg"
-            >
-              ← Retour
-            </button>
       </div>
     </div>
   );

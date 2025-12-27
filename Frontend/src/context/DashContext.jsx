@@ -1,4 +1,7 @@
 
+
+
+
 import { createContext, useContext, useEffect, useState } from "react";
 import api from "../api/axios";
 
@@ -91,7 +94,7 @@ export const DashProvider = ({ children }) => {
     }
   };
 
-  
+  // 🔹 Utilisateurs
   const getUsers = async () => {
     try {
       const res = await api.get("/users");
@@ -101,9 +104,21 @@ export const DashProvider = ({ children }) => {
     }
   };
 
+  // 🔹 Supprimer un utilisateur
+const deleteUser = async (id) => {
+  if (!window.confirm("Supprimer cet utilisateur ?")) return;
+
+  try {
+    await api.delete(`/users/${id}`);
+    setUsers((prev) => prev.filter((u) => u.id !== id));
+  } catch (e) {
+    console.error("Erreur deleteUser", e);
+    alert("Impossible de supprimer cet utilisateur");
+  }
+};
 
 
-  
+  // 🔹 Stats
   const stats = {
     total: books.length,
     disponibles: books.filter((b) => !b.is_borrowed).length,
@@ -130,6 +145,7 @@ export const DashProvider = ({ children }) => {
         addBook,
         updateBook,
         deleteBook,
+        deleteUser,
       }}
     >
       {children}

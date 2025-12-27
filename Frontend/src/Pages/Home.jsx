@@ -1,27 +1,44 @@
-
-
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import api from "../api/axios";
-
 import HeroSection from "../Components/HeroSection";
-import Footer from "../Components/Footer";
 
 export default function Home() {
   const { user } = useAuth();
   const navigate = useNavigate();
 
   const [books, setBooks] = useState([]);
+  const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
+  // 🔹 Charger tous les livres
   const fetchBooks = async () => {
     try {
+      setLoading(true);
       const res = await api.get("/books");
       setBooks(res.data);
     } catch {
-      setError("Impossible de charger les livres");
+      setError("❌ Impossible de charger les livres");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // 🔹 Recherche backend par titre
+  const handleSearch = async () => {
+    try {
+      setLoading(true);
+      setError("");
+
+      const res = await api.get("/books", {
+        params: { search },
+      });
+
+      setBooks(res.data);
+    } catch {
+      setError("❌ Erreur lors de la recherche");
     } finally {
       setLoading(false);
     }
@@ -33,11 +50,16 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <HeroSection />
+      {/* HERO avec recherche */}
+      <HeroSection
+        search={search}
+        setSearch={setSearch}
+        onSearch={handleSearch}
+      />
 
       <div className="mx-auto mt-14 max-w-7xl px-6">
         <h1 className="mb-6 text-2xl font-bold text-[#203E11]">
-          Liste des livres
+          📚 Liste des livres
         </h1>
 
         {error && (
@@ -53,57 +75,67 @@ export default function Home() {
             {books.map((book) => (
               <div
                 key={book.id}
-                className="rounded-xl bg-white shadow-sm border"
+                className="rounded-xl bg-white shadow-lg border-2 border-[#203E11] overflow-hidden hover:shadow-2xl transition"
               >
-                <div className="p-3">
+                {/* IMAGE */}
+                <div className="relative">
                   <img
                     src={book.image || "/livre.jpg"}
                     alt={book.title}
-                    className="h-44 w-full rounded-lg object-cover"
+                    className="h-48 w-full object-cover"
                   />
+
+                  <span
+                    className={`absolute top-3 right-3 px-3 py-1 rounded-full text-xs text-white ${
+                      book.stock === 0 || book.is_borrowed
+                        ? "bg-red-600"
+                        : "bg-green-700"
+                    }`}
+                  >
+                    {book.stock === 0 || book.is_borrowed
+                      ? "Emprunté"
+                      : "Disponible"}
+                  </span>
                 </div>
 
-                <div className="px-4 pb-4">
-                  <h3 className="text-sm font-semibold">{book.title}</h3>
-                  <p className="mt-1 text-xs font-bold text-yellow-600">
-                    {book.author}
+                {/* CONTENU */}
+                <div className="p-4 space-y-2">
+                  <h3 className="text-lg font-semibold text-[#203E11]">
+                    {book.title}
+                  </h3>
+
+                  <p className="text-sm text-gray-700">👤 {book.author}</p>
+                  <p className="text-sm text-blue-700">
+                    📚 {book.category?.name || "Sans catégorie"}
+                  </p>
+                  <p className="text-sm text-gray-700">
+                    🔒 Stock : {book.stock}
                   </p>
 
-                  <p className="mt-1 text-xs text-gray-500">
-                    Catégorie :{" "}
-                    <span className="font-medium">
-                      {book.category?.name || "Sans catégorie"}
-                    </span>
-                  </p>
+                  {/* BOUTONS */}
+                  <div className="pt-3 space-y-2">
+                    <button
+                      onClick={() => navigate(`/books/${book.id}`)}
+                      className="w-full rounded-lg border border-[#203E11] py-2 text-sm font-medium text-[#203E11] hover:bg-[#203E11] hover:text-white transition"
+                    >
+                      Voir détails
+                    </button>
 
-                  <p className="mt-1 text-xs text-gray-500">
-                    Stock : <span className="font-medium">{book.stock}</span>
-                  </p>
-
-                  <div className="mt-3 flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <span
-                        className={`h-2 w-2 rounded-full ${
-                          book.is_borrowed ? "bg-red-500" : "bg-green-600"
-                        }`}
-                      />
-                      <span
-                        className={`text-xs font-medium ${
-                          book.is_borrowed
-                            ? "text-red-600"
-                            : "text-green-600"
-                        }`}
-                      >
-                        {book.is_borrowed ? "Emprunté" : "Disponible"}
-                      </span>
-                    </div>
-
-                    {user?.role === "user" && !book.is_borrowed && book.stock > 0 && (
+                    {user?.role === "user" &&
+                    book.stock > 0 &&
+                    !book.is_borrowed ? (
                       <button
                         onClick={() => navigate(`/borrow/${book.id}`)}
-                        className="text-xs font-medium text-blue-600 hover:underline"
+                        className="w-full rounded-lg bg-[#203E11] py-2 text-white text-sm font-medium hover:bg-[#1A330E] transition"
                       >
                         Emprunter
+                      </button>
+                    ) : (
+                      <button
+                        disabled
+                        className="w-full rounded-lg bg-gray-300 py-2 text-sm text-gray-600 cursor-not-allowed"
+                      >
+                        Indisponible
                       </button>
                     )}
                   </div>
@@ -112,20 +144,7 @@ export default function Home() {
             ))}
           </div>
         )}
-
-        {/* Pagination */}
-        <div className="mt-12 flex items-center justify-center gap-4 text-sm">
-          <span className="cursor-pointer text-gray-400">‹</span>
-          <span className="flex h-7 w-7 items-center justify-center rounded-md bg-green-800 text-white">
-            1
-          </span>
-          <span className="cursor-pointer text-gray-500">2</span>
-          <span className="cursor-pointer text-gray-500">3</span>
-          <span className="cursor-pointer text-gray-400">›</span>
-        </div>
       </div>
-
-      <Footer />
     </div>
   );
 }

@@ -16,7 +16,7 @@ export default function Navbar() {
 
    const location = useLocation();
 
-  // 🚫 cacher navbar dans le dashboard
+  //  cacher navbar dans le dashboard
   if (location.pathname.startsWith("/dashboard")) {
     return null;
   }
@@ -31,13 +31,11 @@ export default function Navbar() {
           <span className="text-yellow-600">Track</span>
         
         </Link>
-        {/* <h1 className="text-3xl font-bold text-green-900">
-            Découvrez notre bibliothèque
-          </h1> */}
+       
 
         <div className="hidden gap-8 font-bold text-[#203E11] md:flex">
           <Link to="/">Accueil</Link>
-          <Link to="/about">About</Link>
+          <Link to="/about">A propos</Link>
 
          {user?.role === "user" && (
   <Link to="/MesEmprunts" className="hover:text-[#203E11]">
