@@ -115,7 +115,7 @@ export default function MesEmprunts() {
                   </p>
                   <p>
                     ⏳ Retour prévu :{" "}
-                    <span className="font-medium">{borrow.return_date}</span>
+                    <span className="font-medium">{borrow.expected_return_date}</span>
                   </p>
                 </div>
 

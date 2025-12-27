@@ -1,7 +1,7 @@
 import React from "react";
 import { FiHome, FiBook, FiUsers } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../../context/AuthContext";
 function Sidebar() {
    const { logout } = useAuth();
    const navigate = useNavigate();
@@ -33,14 +33,14 @@ function Sidebar() {
           <span className="text-sm font-medium">Dashboard</span>
         </div>
 
-       
-        <div className="flex cursor-pointer items-center gap-3 rounded-lg px-4 py-3 text-gray-600 hover:bg-green-50 hover:text-green-700">
+       <button  onClick={() => navigate("/dashboard")}
+        className="flex cursor-pointer items-center gap-3 rounded-lg px-4 py-3 text-gray-600 hover:bg-green-50 hover:text-green-700">
           <FiBook />
           <span className="text-sm font-medium">Gestion des livres</span>
-        </div>
-
        
-        <button  onClick={() => navigate("/dashboard/ListeUser")}
+</button>
+       
+        <button  onClick={() => navigate("/dashboard/users")}
         className="flex cursor-pointer items-center gap-3 rounded-lg px-4 py-3 text-gray-600 hover:bg-green-50 hover:text-green-700">
           <FiUsers />
           <span className="text-sm font-medium">Gestion des utilisateurs</span>
