@@ -12,7 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('borrows', function (Blueprint $table) {
-            //
+              $table->string('status')->default('borrowed'); 
+        // borrowed = en cours, returned = rendu, late = en retard
         });
     }
 
