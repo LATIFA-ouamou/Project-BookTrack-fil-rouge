@@ -112,12 +112,12 @@ class BookController extends Controller
     
 
 
-    // GET /api/books?search=...
+   
 public function search(Request $request)
 {
     $query = Book::query();
 
-    // Filtrer par titre si le paramètre search existe
+   
     if ($request->has('search')) {
         $query->where('title', 'like', '%' . $request->search . '%');
     }
