@@ -1,48 +1,18 @@
-
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import api from "../api/axios";
 import { useAuth } from "../context/AuthContext";
+import { useBorrows } from "../context/BorrowContext";
 
 export default function MesEmprunts() {
   const { user } = useAuth();
+  const { borrows, loading, error, fetchMyBorrows, returnBook } = useBorrows();
   const location = useLocation();
 
   const successMessage = location.state?.message;
 
-  const [borrows, setBorrows] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [returnLoading, setReturnLoading] = useState(null);
-  const [error, setError] = useState("");
-
-  const fetchBorrows = async () => {
-    try {
-      const res = await api.get("/my-borrows");
-      setBorrows(res.data);
-    } catch {
-      setError("Impossible de charger vos emprunts");
-    } finally {
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
-    fetchBorrows();
+    fetchMyBorrows();
   }, []);
-
-  const handleReturn = async (bookId) => {
-    setReturnLoading(bookId);
-    setError("");
-
-    try {
-      await api.post(`/return/${bookId}`);
-      await fetchBorrows();
-    } catch {
-      setError("Erreur lors du retour du livre");
-    } finally {
-      setReturnLoading(null);
-    }
-  };
 
   if (!user || user.role !== "user") {
     return (
@@ -51,6 +21,36 @@ export default function MesEmprunts() {
       </div>
     );
   }
+
+  const statusBadge = (status) => {
+    switch (status) {
+      case "late":
+        return "bg-red-100 text-red-700";
+      case "returned":
+        return "bg-green-100 text-green-700";
+      default:
+        return "bg-yellow-100 text-yellow-700";
+    }
+  };
+
+  const statusText = (status) => {
+    switch (status) {
+      case "late":
+        return "⛔ En retard";
+      case "returned":
+        return "✅ Rendu";
+      default:
+        return "📚 Emprunté";
+    }
+  };
+
+  const handleReturn = async (bookId) => {
+    if (window.confirm("Êtes-vous sûr de vouloir retourner ce livre ?")) {
+      await returnBook(bookId);
+      // Recharger la liste après retour
+      await fetchMyBorrows();
+    }
+  };
 
   return (
     <div className="mx-auto max-w-7xl px-6 py-10">
@@ -74,7 +74,7 @@ export default function MesEmprunts() {
         <p className="text-sm text-gray-500">Chargement...</p>
       ) : borrows.length === 0 ? (
         <p className="text-sm text-gray-500">
-          Vous n’avez aucun livre emprunté
+          Vous n'avez aucun livre emprunté
         </p>
       ) : (
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-4">
@@ -100,37 +100,50 @@ export default function MesEmprunts() {
                   {borrow.book.author}
                 </p>
 
-                <p className="mt-1 text-xs text-green-800 font-semibold">
-                  Catégorie : {borrow.book.category?.name || "Sans catégorie"}
-                </p>
-
-                <p className="mt-1 text-xs text-gray-500">
-                  Stock : <span className="font-medium">{borrow.book.stock}</span>
-                </p>
-
                 <div className="mt-2 text-xs text-gray-600 space-y-1">
                   <p>
-                    📅 Emprunté le :{" "}
-                    <span className="font-medium">{borrow.borrow_date}</span>
+                    📅 Emprunté le :
+                    <span className="font-medium">
+                      {" "}
+                      {borrow.borrow_date}
+                    </span>
                   </p>
                   <p>
-                    ⏳ Retour prévu :{" "}
-                    <span className="font-medium">{borrow.expected_return_date}</span>
+                    ⏳ Retour prévu :
+                    <span className="font-medium">
+                      {" "}
+                      {borrow.expected_return_date}
+                    </span>
                   </p>
+                  {borrow.return_date && (
+                    <p>
+                      📅 Rendu le :
+                      <span className="font-medium">
+                        {" "}
+                        {borrow.return_date}
+                      </span>
+                    </p>
+                  )}
                 </div>
 
                 <div className="mt-4 flex items-center justify-between">
-                  <span className="rounded-full bg-red-100 px-3 py-1 text-xs font-medium text-red-700">
-                    Emprunté
+                  <span
+                    className={`rounded-full px-3 py-1 text-xs font-medium ${statusBadge(
+                      borrow.status
+                    )}`}
+                  >
+                    {statusText(borrow.status)}
                   </span>
 
-                  <button
-                    onClick={() => handleReturn(borrow.book.id)}
-                    disabled={returnLoading === borrow.book.id}
-                    className="rounded-md bg-red-600 px-3 py-2 text-xs font-medium text-white hover:bg-red-700 disabled:opacity-50"
-                  >
-                    {returnLoading === borrow.book.id ? "Retour..." : "Retourner"}
-                  </button>
+                 
+                  {borrow.status !== 'returned' && (
+                    <button
+                      onClick={() => handleReturn(borrow.book.id)}
+                      className="rounded-md bg-red-600 px-3 py-2 text-xs font-medium text-white hover:bg-red-700"
+                    >
+                      Retourner
+                    </button>
+                  )}
                 </div>
               </div>
             </div>

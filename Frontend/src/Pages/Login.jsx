@@ -101,7 +101,7 @@ function Login() {
             </div>
           </div>
 
-          {/* Forgot */}
+        
           <div className="text-right text-sm">
             <span className="text-green-700 hover:underline cursor-pointer">
               Mot de passe oublié ?
