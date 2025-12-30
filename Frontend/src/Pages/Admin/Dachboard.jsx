@@ -7,7 +7,7 @@ function Dashboard() {
 
   return (
     <>
-      {/* TITRE */}
+      
       <div className="mb-10 text-center">
         <h1 className="text-3xl font-bold text-[#203E11]">
           Tableau de bord
@@ -17,7 +17,7 @@ function Dashboard() {
         </p>
       </div>
 
-      {/* CARTES */}
+     
       <div className="mb-14 grid grid-cols-1 gap-6 md:grid-cols-3">
         <StatCard
           title="Livres disponibles"
@@ -46,7 +46,7 @@ function Dashboard() {
   );
 }
 
-/* ================= CARD ================= */
+
 
 const StatCard = ({ title, value, icon, variant }) => {
   const styles = {

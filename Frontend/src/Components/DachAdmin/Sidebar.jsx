@@ -49,7 +49,7 @@ function Sidebar() {
 
         <button
             onClick={handleLogout}
-            className="rounded-md bg-red-600 px-5 py-2 text-sm text-white"
+            className="rounded-md bg-yellow-600 px-5 py-2 text-sm text-white"
           >
             Logout
           </button>

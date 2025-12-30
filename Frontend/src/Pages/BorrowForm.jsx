@@ -1,10 +1,15 @@
+
+
+
+
 import { useParams, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import api from "../api/axios";
+import { useBorrows } from "../context/BorrowContext";
 
 export default function BorrowForm() {
   const { bookId } = useParams();
   const navigate = useNavigate();
+  const { borrowBook } = useBorrows();
 
   const [borrowDate, setBorrowDate] = useState("");
   const [returnDate, setReturnDate] = useState("");
@@ -18,15 +23,13 @@ export default function BorrowForm() {
     setError("");
 
     try {
-      await api.post(`/borrow/${bookId}`, {
+      await borrowBook(bookId, {
         borrow_date: borrowDate,
         expected_return_date: returnDate,
       });
 
-      
       setSuccess("Emprunt confirmé avec succès ");
 
-      
       setTimeout(() => {
         navigate("/MesEmprunts", {
           state: {
@@ -34,7 +37,6 @@ export default function BorrowForm() {
           },
         });
       }, 1500);
-
     } catch {
       setError("Erreur lors de la confirmation de l’emprunt");
     } finally {
@@ -93,3 +95,6 @@ export default function BorrowForm() {
     </div>
   );
 }
+
+
+

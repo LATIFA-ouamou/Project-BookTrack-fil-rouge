@@ -13,7 +13,7 @@ export const DashProvider = ({ children }) => {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  // 🔹 Livres
+  
   const getBooks = async () => {
     try {
       setLoading(true);
@@ -94,7 +94,7 @@ export const DashProvider = ({ children }) => {
     }
   };
 
-  // 🔹 Utilisateurs
+  
   const getUsers = async () => {
     try {
       const res = await api.get("/users");
@@ -104,7 +104,7 @@ export const DashProvider = ({ children }) => {
     }
   };
 
-  // 🔹 Supprimer un utilisateur
+  
 const deleteUser = async (id) => {
   if (!window.confirm("Supprimer cet utilisateur ?")) return;
 
@@ -118,7 +118,7 @@ const deleteUser = async (id) => {
 };
 
 
-  // 🔹 Stats
+  
   const stats = {
     total: books.length,
     disponibles: books.filter((b) => !b.is_borrowed).length,
