@@ -1,6 +1,6 @@
 import { FiBook, FiCheckCircle, FiRefreshCw } from "react-icons/fi";
 import { useDash } from "../../context/DashContext";
-import ListeLivre from "../../Components/ListeLivre";
+import ListeLivre from "../../Components/DachAdmin/ListeLivre";
 
 function Dashboard() {
   const { stats } = useDash();

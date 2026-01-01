@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import api from "../api/axios";
+import { toast } from "react-toastify";
 
 const AuthContext = createContext();
 
@@ -31,18 +32,22 @@ export const AuthProvider = ({ children }) => {
     const res = await api.post("/login", data);
     localStorage.setItem("token", res.data.token);
     setUser(res.data.user);
+    toast.success("connexion réussie !");
+//  toast.s("Action réussie !");
   };
 
   const register = async (data) => {
     const res = await api.post("/register", data);
     localStorage.setItem("token", res.data.token);
     setUser(res.data.user);
+     toast.success("connexion réussie !");
   };
 
   const logout = async () => {
     await api.post("/logout");
     localStorage.removeItem("token");
     setUser(null);
+     toast.success("vous étes déconnecter !");
   };
 
 

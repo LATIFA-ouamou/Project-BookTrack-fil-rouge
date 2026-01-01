@@ -12,7 +12,7 @@ function Footer() {
           <div className="w-7 h-7 rounded-md bg-green-500 flex items-center justify-center">
             <span className="text-white font-bold text-sm">📚</span>
           </div>
-          <h2 className="text-white font-semibold text-lg">BookTrack</h2>
+          <h2 className="text-yellow-600 font-bold text-lg">BookTrack</h2>
         </div>
         <p className="text-sm text-gray-400 leading-relaxed max-w-xs">
           Gérez votre bibliothèque personnelle facilement et efficacement.
@@ -21,7 +21,7 @@ function Footer() {
 
       
       <div>
-        <h3 className="text-white font-semibold mb-4">Liens rapides</h3>
+        <h3 className="text-yellow-600 font-bold mb-4">Liens rapides</h3>
         <ul className="space-y-2 text-sm">
           <li>
             <a href="#" className="hover:text-white transition">
@@ -43,7 +43,7 @@ function Footer() {
 
      
       <div>
-        <h3 className="text-white font-semibold mb-4">Contact</h3>
+        <h3 className="text-yellow-600 font-bold mb-4">Contact</h3>
         <ul className="space-y-3 text-sm">
           <li className="flex items-center gap-3">
             <span className="text-gray-400">✉️</span>

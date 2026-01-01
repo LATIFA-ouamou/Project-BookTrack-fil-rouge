@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useBooks } from "../context/BookContext";
+import { useBooks } from "../../context/BookContext";
 
 function DetailLivre() {
   const { id } = useParams();

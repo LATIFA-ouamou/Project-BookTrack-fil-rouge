@@ -1,5 +1,5 @@
 import { FiTrash2, FiUser } from "react-icons/fi";
-import { useDash } from "../context/DashContext";
+import { useDash } from "../../context/DashContext";
 
 function ListeUser() {
   const { users, loading, deleteUser } = useDash();

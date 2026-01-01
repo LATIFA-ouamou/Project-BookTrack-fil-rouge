@@ -7,24 +7,26 @@ import Home from "./Pages/Home";
 import Login from "./Pages/Login";
 import Register from "./Pages/Register";
 import About from "./Pages/About";
-import DetailLivre from "./Pages/DetailLivre";
+import DetailLivre from "./Components/book/DetailLivre";
 
 import Dashboard from "./Pages/Admin/Dachboard";
-import MesEmprunts from "./Pages/MesEmprunts";
-import BorrowForm from "./Pages/BorrowForm";
+import MesEmprunts from "./Pages/User/MesEmprunts";
+import BorrowForm from "./Pages/User/BorrowForm";
 
 import ProtectedRoute from "./routes/ProtectedRoute";
 import AdminRoute from "./routes/AdminRoute";
 
 import AjouterLivre from "./Components/DachAdmin/AjouterLivre";
-import ModifierLivre from "./Components/ModifierLivre";
-import ListeUser from "./Components/ListeUser";
-import ListeLivre from "./Components/ListeLivre";
+import ModifierLivre from "./Components/DachAdmin/ModifierLivre";
+import ListeUser from "./Components/DachAdmin/ListeUser";
+import ListeLivre from "./Components/DachAdmin/ListeLivre";
 
 function App() {
   return (
+    
     <Routes>
-      {/* 🌍 PUBLIC */}
+      
+     
       <Route element={<MainLayout />}>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
@@ -49,11 +51,11 @@ function App() {
         />
       </Route>
 
-      {/* 🔐 AUTH */}
+      
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
 
-      {/* 🛠️ ADMIN */}
+     
       <Route
         path="/dashboard"
         element={

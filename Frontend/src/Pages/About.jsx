@@ -12,7 +12,7 @@ import {
 export default function About() {
   return (
     <div className="min-h-screen bg-gray-50 text-[#203E11]">
-      {/* HERO */}
+      
       <section className="mx-auto mt-10 max-w-7xl px-6">
         <div className="flex flex-col items-center justify-between gap-8 rounded-3xl bg-[#C9E3CC] p-11 border-2 border-[#203E11]/30 md:flex-row">
           <div className="max-w-xl">
@@ -30,7 +30,7 @@ export default function About() {
         </div>
       </section>
 
-      {/* MISSION */}
+      
       <section className="mx-auto mt-14 max-w-7xl px-6">
         <div className="flex items-start gap-4">
           <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#203E11] text-white">
@@ -46,7 +46,7 @@ export default function About() {
         </div>
       </section>
 
-      {/* FONCTIONNALITÉS */}
+     
       <section className="mx-auto mt-16 max-w-7xl px-6">
         <h3 className="mb-8 text-xl font-bold">Fonctionnalités principales</h3>
 
@@ -87,7 +87,7 @@ export default function About() {
         </div>
       </section>
 
-      {/* POUR QUI */}
+      
       <section className="mx-auto mt-16 max-w-7xl px-6 pb-20">
         <h3 className="mb-8 text-xl font-bold">Pour qui ?</h3>
 

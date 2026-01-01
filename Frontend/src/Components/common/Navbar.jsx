@@ -2,7 +2,7 @@
 
 
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../../context/AuthContext";
 import { useLocation } from "react-router-dom";
 export default function Navbar() {
   const { user, logout } = useAuth();
@@ -24,11 +24,11 @@ export default function Navbar() {
     <nav className="border-b bg-white">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
 
-        <Link to="/" className="flex items-center gap-2 font-semibold text-green-700">
+        <Link to="/" className="flex items-center gap-2 font-bold text-[#203E11]">
           <div className="flex h-8 w-8 items-center justify-center rounded-md bg-green-600 text-white">
-            📗
-          </div>Book
-          <span className="text-yellow-600">Track</span>
+            📚
+          </div>BookTrack
+          {/* <span className="text-yellow-600"></span> */}
         
         </Link>
        
