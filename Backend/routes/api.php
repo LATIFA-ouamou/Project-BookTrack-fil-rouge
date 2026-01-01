@@ -53,7 +53,7 @@ Route::get('/categories', [BookController::class, 'getCategory']);
 // Route::post('/books', [BookController::class, 'store']);
     
     Route::middleware('admin')->group(function () {
-       Route::post('/books', [BookController::class, 'store']);
+        Route::post('/books', [BookController::class, 'store']);
         Route::put('/books/{book}', [BookController::class, 'update']);
         Route::delete('/books/{book}', [BookController::class, 'destroy']);
 
@@ -63,7 +63,7 @@ Route::get('/categories', [BookController::class, 'getCategory']);
     Route::delete('/users/{user}', [UserController::class, 'destroy']);
     });
 
-   Route::post('/borrow/{book}', [BorrowController::class, 'borrow']);
+    Route::post('/borrow/{book}', [BorrowController::class, 'borrow']);
     
     Route::post('/return/{book}', [BorrowController::class, 'return']);
     Route::get('/my-borrows', [BorrowController::class, 'myBorrows']);
