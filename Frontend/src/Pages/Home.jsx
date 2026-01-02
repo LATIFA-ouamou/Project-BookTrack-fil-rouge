@@ -119,7 +119,7 @@ export default function Home() {
               type="button"
               onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
               disabled={currentPage === 1}
-              className="rounded-xl border border-[#203E11] px-5 py-2 text-sm font-medium text-[#203E11] transition hover:bg-[#203E11] hover:text-white disabled:opacity-40"
+             className=" bg-[#203E11] rounded-xl border  px-5 py-2 text-sm font-medium text-[#FFFFFF] transition hover:bg-[#33641a] hover:text-white disabled:opacity-40 m-10"
             >
               ← Précédent
             </button>
@@ -134,7 +134,7 @@ export default function Home() {
                 setCurrentPage((p) => Math.min(p + 1, totalPages))
               }
               disabled={currentPage === totalPages}
-              className="rounded-xl border border-[#203E11] px-5 py-2 text-sm font-medium text-[#203E11] transition hover:bg-[#203E11] hover:text-white disabled:opacity-40 m-10"
+              className=" bg-[#203E11] rounded-xl border  px-5 py-2 text-sm font-medium text-[#FFFFFF] transition hover:bg-[#33641a] hover:text-white disabled:opacity-40 m-10"
             >
               Suivant →
             </button>
