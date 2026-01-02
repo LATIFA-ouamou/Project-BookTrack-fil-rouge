@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
-import { useBorrows } from "../context/BorrowContext";
+import { useAuth } from "../../context/AuthContext";
+import { useBorrows } from "../../context/BorrowContext";
 
 export default function MesEmprunts() {
   const { user } = useAuth();

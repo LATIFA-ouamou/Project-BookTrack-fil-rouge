@@ -2,7 +2,7 @@ import React from "react";
 import { FiEdit2, FiTrash2, FiPlus } from "react-icons/fi";
 import { FaBook, FaCheck } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import { useDash } from "../context/DashContext";
+import { useDash } from "../../context/DashContext";
 
 function ListeLivre() {
   const { books, loading, deleteBook } = useDash();
@@ -16,7 +16,6 @@ function ListeLivre() {
     );
   }
 
-  /* ===== STATUS BADGE ===== */
   const renderStatus = (isBorrowed) =>
     isBorrowed ? (
       <span className="inline-flex items-center gap-1 rounded-full bg-yellow-100 px-3 py-1 text-xs font-medium text-yellow-700">
@@ -32,7 +31,7 @@ function ListeLivre() {
 
   return (
     <div className="mt-10 rounded-xl bg-white p-6 shadow-sm">
-      {/* HEADER */}
+      
       <div className="mb-6 flex items-center justify-between">
         <h2 className="text-lg font-semibold text-[#203E11]">
           Liste des livres
@@ -47,7 +46,7 @@ function ListeLivre() {
         </button>
       </div>
 
-      {/* TABLE */}
+      
       <div className="overflow-x-auto rounded-lg border border-gray-100">
         <table className="w-full text-sm">
           <thead className="bg-green-100 text-left text-[#203E11]">

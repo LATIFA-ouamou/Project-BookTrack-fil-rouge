@@ -26,7 +26,7 @@ export default function HeroSection({
           <button
             type="button"
             onClick={() => navigate("/MesEmprunts")}
-            className="rounded-md bg-yellow-600 px-5 py-2 text-sm text-[#ffffff] hover:bg-[#108b12]"
+            className="rounded-md bg-yellow-700 px-5 py-2 text-sm text-[#ffffff] hover:bg-[#108b12]"
           >
             Mes emprunts
           </button>
