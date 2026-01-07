@@ -20,21 +20,21 @@ class RegisterTest extends TestCase
             'password_confirmation' => 'password123',
         ]);
 
-        //  Vérifier status
+       
         $response->assertStatus(201);
 
-        // Vérifier structure JSON
+       
         $response->assertJsonStructure([
             'user' => ['id', 'name', 'email', 'role'],
             'token'
         ]);
 
-        // Vérifier DB
+        
         $this->assertDatabaseHas('users', [
             'email' => 'latifa@test.com'
         ]);
 
-        // Vérifier mot de passe hashé
+       
         $user = User::first();
         $this->assertTrue(
             Hash::check('password123', $user->password)
