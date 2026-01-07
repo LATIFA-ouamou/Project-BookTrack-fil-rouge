@@ -23,7 +23,7 @@ class BorrowController extends Controller
 
 public function borrow(StoreBorrowRequest $request, Book $book)
 {
-    // Vérifier le stock
+   
     if ($book->stock <= 0) {
         return response()->json([
             'message' => 'Stock épuisé, livre indisponible'
@@ -60,7 +60,7 @@ public function myBorrows()
         ->orderBy('created_at', 'desc')
         ->get();
 
-    // Mettre à jour le statut pour chaque emprunt
+    
     foreach ($borrows as $borrow) {
         if ($borrow->return_date) {
             $borrow->status = 'returned';
@@ -71,7 +71,7 @@ public function myBorrows()
             $borrow->status = 'borrowed';
         }
         
-        $borrow->save(); // Sauvegarder le statut en base de donner 
+        $borrow->save();  
     }
 
     return response()->json($borrows);

@@ -33,7 +33,7 @@ export const AuthProvider = ({ children }) => {
     localStorage.setItem("token", res.data.token);
     setUser(res.data.user);
     toast.success("connexion réussie !");
-//  toast.s("Action réussie !");
+
   };
 
   const register = async (data) => {

@@ -15,7 +15,7 @@ class BookController extends Controller
     public function index()
     {
         return response()->json(
-        Book::with('category')->get()
+        Book::with('category')->where('is-borrowed',true)->where('category-id',!Null)->get()
     );
     }
 
@@ -24,27 +24,8 @@ class BookController extends Controller
         return response()->json($book->load('category'));
     }
 
-    // public function store(StoreBookRequest $request)
-    // {
-    //     $data = $request->validated();
 
-    //     if ($request->hasFile('image')) {
-    //         $upload = Cloudinary::upload(
-    //             $request->file('image')->getRealPath(),
-    //             ['folder' => 'books']
-    //         );
-
-    //         // Correction ici
-    //         $data['image'] = $upload->getSecureUrl();
-    //     }
-
-    //     $book = Book::create($data);
-
-    //     return response()->json($book, 201);
-    // }
-
-
-    public function store(StoreBookRequest $request)
+public function store(StoreBookRequest $request)
 {
     $data = $request->validated();
 
@@ -59,7 +40,8 @@ class BookController extends Controller
 
     $book = Book::create($data);
 
-    return response()->json($book, 201);
+   
+    return response()->json($book->load('category'), 201);
 }
 
 
@@ -67,25 +49,26 @@ class BookController extends Controller
 
 
 
-    public function update(UpdateBookRequest $request, Book $book)
-    {
-        $data = $request->validated();
+  
 
-        if ($request->hasFile('image')) {
-            $upload = Cloudinary::upload(
-                $request->file('image')->getRealPath(),
-                ['folder' => 'books']
-            );
+public function update(UpdateBookRequest $request, Book $book)
+{
+    $data = $request->validated();
 
-           
-          $data['image'] = $upload->getResponse()['secure_url'];
-        }
+    if ($request->hasFile('image')) {
+        $upload = Cloudinary::upload(
+            $request->file('image')->getRealPath(),
+            ['folder' => 'books']
+        );
 
-        $book->update($data);
-
-        return response()->json($book);
+        $data['image'] = $upload->getResponse()['secure_url'];
     }
 
+    $book->update($data);
+
+   
+    return response()->json($book->load('category'));
+}
 
 
 
