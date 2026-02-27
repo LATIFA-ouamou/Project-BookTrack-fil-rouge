@@ -15,7 +15,7 @@ class BookController extends Controller
     public function index()
     {
         return response()->json(
-        Book::with('category')->where('is-borrowed',true)->where('category-id',!Null)->get()
+        Book::with('category')->where('is-borrowed',true)->get()
     );
     }
 
